@@ -112,7 +112,8 @@ const setCircle = (ownProps) => (canvas) => {
 
 
 const onCircleClick = (ownProps) => (props) => (e) => {
-    const ctx = ownProps.canvas.getContext('2d')
+    const { canvas } = ownProps
+    const ctx = canvas.getContext('2d')
     let activeCircle = null
     for (let i = 0; i < optionStore.length; i++) {
         const {

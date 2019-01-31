@@ -2,13 +2,15 @@ import Canvas from './canvas'
 
 // クリックされた時の処理用にx座標とy座標とsizeを保存しておく
 export let optionStore = []
+let tempStore = []
 
 export default class Circle extends Canvas {
     constructor(context, name, positionX, positionY, size, color, text = "") {
         super(context, name, positionX, positionY, size, color)
         this.text = text
+        this.canvasStore = []
     }
-    drawCircle = () => {
+    drawCircle = (isSaveStore = true) => {
         const {
             context,
             name,
@@ -16,13 +18,22 @@ export default class Circle extends Canvas {
             positionY,
             size,
             color,
-            text
+            text,
         } = this
         this.setFillCanvas()
         context.arc(positionX, positionY, size, 0, Math.PI * 2)
         context.fill()
-        if (optionStore.length < 2) {
-            optionStore.push({ name, x: positionX, y: positionY, size, color, text })
+        console.log('temp: ', tempStore.length, tempStore)
+        if(isSaveStore) {
+            if (tempStore.length === 2) {
+                tempStore = []
+            }
+            tempStore.push({ name, x: positionX, y: positionY, size, color, text })
+            if(tempStore.length === 2) {
+                optionStore = []
+                optionStore.push(...tempStore)
+                console.log('option: ', optionStore)
+            }
         }
     }
 
@@ -84,10 +95,13 @@ export default class Circle extends Canvas {
             size,
             positionY
         } = this
-        const {
-            windowHeight,
-            windowWidth,
-        } = props
+        // const {
+        //     windowHeight,
+        //     windowWidth,
+        // } = props
+
+        const windowHeight = window.innerHeight
+        const windowWidth = window.innerWidth
 
         const animTime = 3
         const animSize = size
@@ -102,6 +116,7 @@ export default class Circle extends Canvas {
         let activeCircle = {}
         // 描画をリセット
         context.clearRect(0, 0, windowWidth, windowHeight)
+        
         // 再描画と同時にクリックされた円を縮小させる
         for (let i = 0; i < optionStore.length; i++) {
             const {
@@ -161,7 +176,7 @@ export default class Circle extends Canvas {
         let animSize = size
         const animTime = 20
         const circle = new Circle(context, name, positionX, positionY, animSize + animTime, color)
-        circle.drawCircle()
+        circle.drawCircle(false)
 
         window.requestAnimationFrame(circle.transitionAnimation(props))
     }
