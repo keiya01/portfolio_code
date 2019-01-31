@@ -4,6 +4,10 @@ import Canvas from './canvas'
 export let optionStore = []
 
 export default class Circle extends Canvas {
+    constructor(context, name, positionX, positionY, size, color, text = "") {
+        super(context, name, positionX, positionY, size, color)
+        this.text = text
+    }
     drawCircle = () => {
         const {
             context,
@@ -11,27 +15,38 @@ export default class Circle extends Canvas {
             positionX,
             positionY,
             size,
-            color
+            color,
+            text
         } = this
         this.setFillCanvas()
         context.arc(positionX, positionY, size, 0, Math.PI * 2)
         context.fill()
-        if (optionStore.length < 3) {
-            optionStore.push({ name, x: positionX, y: positionY, size, color })
+        if (optionStore.length < 2) {
+            optionStore.push({ name, x: positionX, y: positionY, size, color, text })
         }
     }
 
-    setShadow = () => {
+    setShadow = (moveDistanceY = null) => {
         const {
             context,
         } = this
-        context.shadowColor = '#eee'
-        context.shadowBlur = 0.5
+        context.shadowColor = '#555'
         context.shadowOffsetX = -0.5
-        context.shadowOffsetY = 0.5
+        context.shadowOffsetY = moveDistanceY !== null ? moveDistanceY : 2
+        context.shadowBlur = moveDistanceY !== null ? 1 : 8
     }
 
-    setText = () => {
+    resetShadow = () => {
+        const {
+            context
+        } = this
+        context.shadowColor = '#fff'
+        context.shadowOffsetX = 0
+        context.shadowOffsetY = 0
+        context.shadowBlur = 0
+    }
+
+    setTitle = () => {
         const {
             context,
             name,
@@ -43,10 +58,82 @@ export default class Circle extends Canvas {
         context.font = "bold 22px Franklin Gothic Medium"
         context.fillStyle = '#333'
         context.textAlign = "center";
-        context.fillText(name, positionX, positionY + 5)
+        context.fillText(name, positionX, positionY)
     }
 
-    startClickAnimation = (props, navigate) => (timestamp) => {
+    setText = () => {
+        const {
+            context,
+            text,
+            positionX,
+            positionY,
+            size
+        } = this
+
+        context.beginPath()
+        context.font = `normal 13px sans-serif`
+        context.fillStyle = '#555'
+        context.textAlign = "center";
+        context.fillText(text, positionX, positionY + 30)
+    }
+
+    clickAnimation = (nextAnimation, constantSize, props) => (timestamp) => {
+        const {
+            context,
+            name,
+            size,
+            positionY
+        } = this
+        const {
+            windowHeight,
+            windowWidth,
+        } = props
+
+        const animTime = 3
+        const animSize = size
+        const animY = positionY
+        if (animSize <= constantSize - 25) {
+            console.log('next!!!')
+            window.requestAnimationFrame(nextAnimation)
+            return
+        }
+
+        // クリックされた円を保存しておく
+        let activeCircle = {}
+        // 描画をリセット
+        context.clearRect(0, 0, windowWidth, windowHeight)
+        // 再描画と同時にクリックされた円を縮小させる
+        for (let i = 0; i < optionStore.length; i++) {
+            const {
+                name: optionName,
+                x: optionX,
+                y: optionY,
+                size: optionSize,
+                color: optionColor,
+                text: optionText
+            } = optionStore[i]
+
+            const isActiveCircle = optionName === name
+
+            const nextSize = isActiveCircle ? animSize - animTime : optionSize
+            const nextY = isActiveCircle ? animY + 2 : optionY
+            console.log(nextY, nextSize)
+            const circle = new Circle(context, optionName, optionX, nextY, nextSize, optionColor, optionText)
+            if (isActiveCircle) {
+                activeCircle = circle
+                circle.setShadow(0.1)
+            }else{
+                circle.setShadow()
+            }
+            circle.drawCircle()
+            circle.resetShadow()
+            circle.setTitle()
+            circle.setText()
+        }
+        window.requestAnimationFrame(activeCircle.clickAnimation(nextAnimation, constantSize, props))
+    }
+
+    transitionAnimation = (props, navigate) => (timestamp) => {
         const {
             windowHeight,
             windowWidth,
@@ -62,19 +149,21 @@ export default class Circle extends Canvas {
         if (size > windowHeight && size > windowWidth) {
             switch (name) {
                 case 'Works':
-                    props.history.push('/works')
+                    props.history.push('/portfolio/works')
                     return
                 case 'Blogs':
-                    props.history.push('/blogs')
+                    props.history.push('/portfolio/blogs')
                     return
             }
             return
         }
+
         let animSize = size
         const animTime = 20
         const circle = new Circle(context, name, positionX, positionY, animSize + animTime, color)
         circle.drawCircle()
-        window.requestAnimationFrame(circle.startClickAnimation(props))
+
+        window.requestAnimationFrame(circle.transitionAnimation(props))
     }
 
     onClick = (e, props) => {
@@ -94,7 +183,8 @@ export default class Circle extends Canvas {
         const clickPoint = (clickX - positionX) ** 2 + (clickY - positionY) ** 2
         const circleArea = size ** 2
         if (clickPoint < circleArea) {
-            window.requestAnimationFrame(this.startClickAnimation(props))
+            return true
         }
+        return false
     }
 }

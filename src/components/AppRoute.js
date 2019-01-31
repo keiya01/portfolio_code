@@ -8,9 +8,9 @@ export default class AppRoute extends Component {
         return (
             <Router>
                 <Fragment>
-                    <Route exact path='/' component={HomeTopScreen} />
-                    <Route path='/works' component={HomeTopScreen} />
-                    <Route path='/blogs' component={HomeTopScreen} />
+                    <Route exact path='/portfolio' component={HomeTopScreen} />
+                    <Route path='/portfolio/works' component={HomeTopScreen} />
+                    <Route path='/portfolio/blogs' component={HomeTopScreen} />
                 </Fragment>
             </Router>
         )

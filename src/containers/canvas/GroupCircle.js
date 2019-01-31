@@ -54,20 +54,23 @@ const setCircle = (ownProps) => (canvas) => {
 
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, width, height);
+    // スマートフォン用の設定
     const circleOptions = [
         {
             name: 'Blogs',
-            x: width * 0.35,
+            x: width * 0.34,
             y: height * 0.6,
             size: width * 0.25,
-            color: '#fff'
+            color: '#fff',
+            text: '学びの記録'
         },
         {
             name: 'Works',
-            x: width * 0.65,
-            y: height * 0.45,
+            x: width * 0.66,
+            y: height * 0.51,
             size: width * 0.25,
-            color: '#fff'
+            color: '#fff',
+            text: '作品一覧'
         },
     ]
 
@@ -80,16 +83,17 @@ const setCircle = (ownProps) => (canvas) => {
             x,
             y,
             size,
-            color
+            color,
+            text
         } = circleOption
 
         let responsiveX = x
         let responsiveY = y
         let responsiveSize = size
         if (ua.match(/android|iphone/) === null) {
-            responsiveX *= name === 'Blogs' ? 1.2 : 0.92
-            responsiveY *= name === 'Blogs' ? 0.95 : 0.9
-            responsiveSize *= width > 1000 ? 0.5 : 0.7
+            responsiveX *= name === 'Blogs' ? 1.25 : 0.89
+            responsiveY *= name === 'Blogs' ? 1.1 : 1.08
+            responsiveSize *= width > 1000 ? 0.5 : 0.65
         }
         if (ua.match(/ipad/) !== null) {
             responsiveX *= name === 'Blogs' ? 0.8 : 1.1
@@ -97,9 +101,11 @@ const setCircle = (ownProps) => (canvas) => {
             responsiveSize = width * 0.25
         }
 
-        const circle = new Circle(ctx, name, responsiveX, responsiveY, responsiveSize, color)
-        circle.drawCircle()
+        const circle = new Circle(ctx, name, responsiveX, responsiveY, responsiveSize, color, text)
         circle.setShadow()
+        circle.drawCircle()
+        circle.resetShadow()
+        circle.setTitle()
         circle.setText()
     }
 }
@@ -107,16 +113,32 @@ const setCircle = (ownProps) => (canvas) => {
 
 const onCircleClick = (ownProps) => (props) => (e) => {
     const ctx = ownProps.canvas.getContext('2d')
+    let activeCircle = null
     for (let i = 0; i < optionStore.length; i++) {
         const {
             name,
             x,
             y,
             size,
-            color
+            color,
+            text
         } = optionStore[i]
-        const circle = new Circle(ctx, name, x, y, size, color)
-        circle.onClick(e, props)
+        const circle = new Circle(ctx, name, x, y, size, color, text)
+        const isAnimation = circle.onClick(e, props)
+        if (isAnimation) {
+            // 配列の中で最後の要素かつ円の範囲をクリックされているものを代入
+            activeCircle = circle
+        }
+    }
+    // 手前の円のみにアニメーションを付ける
+    if (activeCircle !== null) {
+        window.requestAnimationFrame(
+            activeCircle.clickAnimation(
+                activeCircle.transitionAnimation(props),
+                activeCircle.size,
+                props
+            )
+        )
     }
 }
 

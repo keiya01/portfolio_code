@@ -27,9 +27,18 @@ const stateHandler = {
     handleChange,
 }
 
+const refHandler = () => {
+    let refs = {}
+    return {
+        setRef: (ownProps) => name => e => (refs[name] = e),
+        getRefs: (ownProps) => () => refs
+    }
+}
+
 // propsの変更を行わないhandler
-const handleProps = (ownProps) => ({
-})
+const handleProps = {
+    ...refHandler()
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -43,6 +52,18 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
+    componentDidMount() {
+        const {
+            getRefs
+        } = this.props
+        const refs = getRefs()
+        const {
+            divDescription
+        } = refs
+        setTimeout(() => {
+            divDescription.style.display = 'inline-block'
+        }, 5000)
+    }
 
 }
 
