@@ -61,8 +61,8 @@ const lifeCycle = {
             divDescription
         } = refs
         setTimeout(() => {
-            divDescription.style.display = 'inline-block'
-        }, 5000)
+            divDescription.style.opacity = 1
+        }, 3500)
     }
 
 }

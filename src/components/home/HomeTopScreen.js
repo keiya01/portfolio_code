@@ -9,13 +9,13 @@ export default class HomeTopScreen extends Component {
         return (
             <Fragment>
                 <div className={css(styles.container)}>
-                    <div className={css(styles.textContainer)} style={{ paddingBottom: 50 }}>
+                    <div className={css(styles.profileContainer)} style={{ paddingBottom: 50 }}>
                         <img src={require('../../assets/img/thumbnail.jpg')} className={css(styles.image)} />
                         <p className={css(styles.name)}>Keiya Sasaki</p>
                     </div>
                     <div
                         className={css(styles.descriptionContainer)}
-                        style={{ display: 'none' }}
+                        style={{ opacity: 0 }}
                         ref={this.props.setRef('divDescription')}
                     >
                         <table className={css(styles.descriptionText)}>
@@ -95,6 +95,13 @@ const styles = StyleSheet.create({
         width: '100vw',
         height: '100vh'
     },
+    profileContainer: {
+        display: 'flex',
+        margin: '0 auto',
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     image: {
         width: 70,
         height: 70,
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
         border: 'solid 1px #FFFF00',
         animationName: showImage,
         animationTimingFunction: 'easy',
-        animationDuration: '5s',
+        animationDuration: '2s',
         animationDelay: '0s'
     },
     name: {
@@ -113,15 +120,8 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         animationName: showUserName,
         animationTimingFunction: 'easy',
-        animationDuration: '10s',
+        animationDuration: '4s',
         animationDelay: '0s'
-    },
-    textContainer: {
-        display: 'flex',
-        margin: '0 auto',
-        width: '90%',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     descriptionContainer: {
         width: '90%',
@@ -129,9 +129,9 @@ const styles = StyleSheet.create({
         margin: '0 auto',
         paddingLeft: 20,
         animationName: showDescription,
-        animationDuration: '5s',
+        animationDuration: '3s',
         animationTimingFunction: 'ease',
-        animationDelay: '0s',
+        animationDelay: '2s',
     },
     descriptionText: {
         color: '#555',

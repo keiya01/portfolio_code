@@ -11,9 +11,10 @@ export default class GroupCircle extends Component {
             setCircle,
             windowHeight,
             windowWidth,
-            children
+            children,
+            isCircleClicked
         } = this.props
-        if (canvas !== null) {
+        if (canvas !== null && !isCircleClicked) {
             canvas.addEventListener('click', onCircleClick(this.props))
         }
 

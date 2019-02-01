@@ -15,6 +15,7 @@ const initialProps = {
     canvas: null,
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth,
+    isCircleClicked: false
 }
 
 const canRenderProps = [
@@ -111,35 +112,54 @@ const setCircle = (ownProps) => (canvas) => {
 }
 
 
-const onCircleClick = (ownProps) => (props) => (e) => {
-    const { canvas } = ownProps
-    const ctx = canvas.getContext('2d')
-    let activeCircle = null
-    for (let i = 0; i < optionStore.length; i++) {
-        const {
-            name,
-            x,
-            y,
-            size,
-            color,
-            text
-        } = optionStore[i]
-        const circle = new Circle(ctx, name, x, y, size, color, text)
-        const isAnimation = circle.onClick(e, props)
-        if (isAnimation) {
-            // 配列の中で最後の要素かつ円の範囲をクリックされているものを代入
-            activeCircle = circle
+const setClickEvent = (ownProps) => {
+    // クリックされているかどうかを確認する変数
+    let isClicked = false
+    return {
+        onCircleClick: (ownProps) => (props) => (e) => {
+            const {
+                canvas,
+                handleChange,
+                isCircleClicked
+            } = ownProps
+
+            // circleがクリックされているなら処理をしない
+            if (isClicked) {
+                return
+            }
+            
+            // クリックを禁止する
+            isClicked = true
+
+            const ctx = canvas.getContext('2d')
+            let activeCircle = null
+            for (let i = 0; i < optionStore.length; i++) {
+                const {
+                    name,
+                    x,
+                    y,
+                    size,
+                    color,
+                    text
+                } = optionStore[i]
+                const circle = new Circle(ctx, name, x, y, size, color, text)
+                const isAnimation = circle.onClick(e, props)
+                if (isAnimation) {
+                    // 配列の中で最後の要素かつ円の範囲をクリックされているものを代入
+                    activeCircle = circle
+                }
+            }
+            // 手前の円のみにアニメーションを付ける
+            if (activeCircle !== null) {
+                window.requestAnimationFrame(
+                    activeCircle.clickAnimation(
+                        activeCircle.transitionAnimation(props),
+                        activeCircle.size,
+                        props
+                    )
+                )
+            }
         }
-    }
-    // 手前の円のみにアニメーションを付ける
-    if (activeCircle !== null) {
-        window.requestAnimationFrame(
-            activeCircle.clickAnimation(
-                activeCircle.transitionAnimation(props),
-                activeCircle.size,
-                props
-            )
-        )
     }
 }
 
@@ -151,11 +171,11 @@ const setRef = () => {
     }
 }
 // propsの変更を行わないhandler
-const handleProps = {
+const handleProps = (ownProps) => ({
     ...setRef(),
+    ...setClickEvent(ownProps),
     setCircle,
-    onCircleClick
-}
+})
 
 const mapStateToProps = (state) => {
     return {

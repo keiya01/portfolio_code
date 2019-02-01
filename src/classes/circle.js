@@ -107,7 +107,6 @@ export default class Circle extends Canvas {
         const animSize = size
         const animY = positionY
         if (animSize <= constantSize - 25) {
-            console.log('next!!!')
             window.requestAnimationFrame(nextAnimation)
             return
         }
