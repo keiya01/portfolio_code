@@ -147,7 +147,7 @@ export default class Circle extends Canvas {
         window.requestAnimationFrame(activeCircle.clickAnimation(nextAnimation, constantSize, props))
     }
 
-    transitionAnimation = (props, navigate) => (timestamp) => {
+    transitionAnimation = (props) => (timestamp) => {
         const {
             windowHeight,
             windowWidth,
@@ -163,10 +163,10 @@ export default class Circle extends Canvas {
         if (size > windowHeight && size > windowWidth) {
             switch (name) {
                 case 'Works':
-                    props.history.push('/portfolio/works')
+                    props.history.push('/works')
                     return
                 case 'Blogs':
-                    props.history.push('/portfolio/blogs')
+                    props.history.push('/blogs')
                     return
             }
             return

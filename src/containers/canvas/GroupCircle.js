@@ -3,13 +3,12 @@ import { connect } from 'react-redux'
 
 import Circle from '../../classes/circle'
 import { optionStore } from '../../classes/circle'
-import GroupCircle from '../../components/canvas/GroupCircle'
+import DisplayComponent from '../../components/canvas/GroupCircle'
 
 import * as WindowAction from '../../modules/window'
 
 
 const display = "GroupCircle"
-const component = GroupCircle
 
 const initialProps = {
     canvas: null,
@@ -32,8 +31,6 @@ const handleChange = (ownProps) => (name, value) => {
 }
 
 const onResize = (ownProps) => (h, w) => {
-    console.log(h, w)
-
     return {
         windowHeight: h,
         windowWidth: w,
@@ -235,4 +232,4 @@ const Enhance = compose(
     onlyUpdateForKeys(canRenderProps),
 )
 
-export default Enhance(component)
+export default Enhance(DisplayComponent)

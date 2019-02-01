@@ -1,10 +1,9 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
 
-import HomeTopScreen from '../../components/home/HomeTopScreen'
+import DisplayComponent from '../../components/home/HomeTopScreen'
 
 const display = "HomeTopScreen"
-const component = HomeTopScreen
 
 const initialProps = {
 }
@@ -82,4 +81,4 @@ const Enhance = compose(
     onlyUpdateForKeys(canRenderProps),
 )
 
-export default Enhance(component)
+export default Enhance(DisplayComponent)

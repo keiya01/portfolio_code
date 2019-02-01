@@ -14,7 +14,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
   },
-  "homepage": "https://keiya01.github.io/portfolio/",
+  "homepage": "https://keiya01.github.io/portfolio",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

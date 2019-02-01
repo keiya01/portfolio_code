@@ -7,7 +7,7 @@ export default class PreparationScreen extends Component {
         return (
             <div className={css(styles.container)}>
                 <h3 className={css(styles.message)}>準備中です...</h3>
-                <Link to='/portfolio' className={css(styles.link)}>トップへ</Link>
+                <Link to='/' className={css(styles.link)}>トップへ</Link>
             </div>
         )
     }
