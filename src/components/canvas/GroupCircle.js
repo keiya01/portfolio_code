@@ -7,11 +7,8 @@ export default class GroupCircle extends Component {
             setRef,
             onCircleClick,
             canvas,
-            onResize,
-            setCircle,
-            windowHeight,
             windowWidth,
-            children,
+            windowHeight
         } = this.props
         if (canvas !== null) {
             canvas.addEventListener('click', onCircleClick(this.props))
@@ -26,8 +23,9 @@ export default class GroupCircle extends Component {
                 <canvas
                     ref={e => setRef(e, "canvas")}
                     className={css(styles.canvas)}
-                    width={windowWidth}
-                    height={windowHeight}
+                    // width={windowWidth}
+                    // height={windowHeight}
+                    style={{width: windowWidth, height: windowHeight}}
                 />
             </div>
         )

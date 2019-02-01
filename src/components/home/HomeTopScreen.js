@@ -5,7 +5,6 @@ import GroupCirle from '../../containers/canvas/GroupCircle'
 
 export default class HomeTopScreen extends Component {
     render() {
-        console.log(this.props)
         return (
             <Fragment>
                 <div className={css(styles.container)}>

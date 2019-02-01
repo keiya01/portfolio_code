@@ -23,7 +23,6 @@ export default class Circle extends Canvas {
         this.setFillCanvas()
         context.arc(positionX, positionY, size, 0, Math.PI * 2)
         context.fill()
-        console.log('temp: ', tempStore.length, tempStore)
         if(isSaveStore) {
             if (tempStore.length === 2) {
                 tempStore = []
@@ -32,7 +31,6 @@ export default class Circle extends Canvas {
             if(tempStore.length === 2) {
                 optionStore = []
                 optionStore.push(...tempStore)
-                console.log('option: ', optionStore)
             }
         }
     }
@@ -66,7 +64,7 @@ export default class Circle extends Canvas {
         } = this
 
         context.beginPath()
-        context.font = "bold 22px Franklin Gothic Medium"
+        context.font = "bold 34px Arial"
         context.fillStyle = '#333'
         context.textAlign = "center";
         context.fillText(name, positionX, positionY)
@@ -82,10 +80,10 @@ export default class Circle extends Canvas {
         } = this
 
         context.beginPath()
-        context.font = `normal 13px sans-serif`
+        context.font = `normal 25px 游ゴシック`
         context.fillStyle = '#555'
         context.textAlign = "center";
-        context.fillText(text, positionX, positionY + 30)
+        context.fillText(text, positionX, positionY + 50)
     }
 
     clickAnimation = (nextAnimation, constantSize, props) => (timestamp) => {
@@ -114,7 +112,7 @@ export default class Circle extends Canvas {
         // クリックされた円を保存しておく
         let activeCircle = {}
         // 描画をリセット
-        context.clearRect(0, 0, windowWidth, windowHeight)
+        context.clearRect(0, 0, windowWidth * 2, windowHeight * 2)
         
         // 再描画と同時にクリックされた円を縮小させる
         for (let i = 0; i < optionStore.length; i++) {
@@ -131,7 +129,6 @@ export default class Circle extends Canvas {
 
             const nextSize = isActiveCircle ? animSize - animTime : optionSize
             const nextY = isActiveCircle ? animY + 2 : optionY
-            console.log(nextY, nextSize)
             const circle = new Circle(context, optionName, optionX, nextY, nextSize, optionColor, optionText)
             if (isActiveCircle) {
                 activeCircle = circle
@@ -160,7 +157,7 @@ export default class Circle extends Canvas {
             size,
             color,
         } = this
-        if (size > windowHeight && size > windowWidth) {
+        if (size > windowHeight * 2 && size > windowWidth * 2) {
             switch (name) {
                 case 'Works':
                     props.history.push('/works')
@@ -173,7 +170,7 @@ export default class Circle extends Canvas {
         }
 
         let animSize = size
-        const animTime = 20
+        const animTime = 35
         const circle = new Circle(context, name, positionX, positionY, animSize + animTime, color)
         circle.drawCircle(false)
 
@@ -192,8 +189,8 @@ export default class Circle extends Canvas {
             size
         } = this
         const rect = e.target.getBoundingClientRect()
-        const clickX = clientX - rect.left
-        const clickY = clientY - rect.top
+        const clickX = clientX * 2 - rect.left
+        const clickY = clientY * 2 - rect.top
         const clickPoint = (clickX - positionX) ** 2 + (clickY - positionY) ** 2
         const circleArea = size ** 2
         if (clickPoint < circleArea) {

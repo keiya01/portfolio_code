@@ -47,11 +47,15 @@ const setCircle = (ownProps) => (canvas) => {
         windowHeight,
         windowWidth
     } = ownProps
-    const height = windowHeight
-    const width = windowWidth
+    const height = windowHeight * 2
+    const width = windowWidth * 2
 
+    canvas.height = height
+    canvas.width = width
+    // canvas.style.height = height
+    // canvas.style.width = width
     const ctx = canvas.getContext('2d')
-    ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, width, height)
     // スマートフォン用の設定
     const circleOptions = [
         {
@@ -124,7 +128,7 @@ const setClickEvent = (ownProps) => {
             if (isClicked) {
                 return
             }
-            
+
             // クリックを禁止する
             isClicked = true
 
