@@ -47,6 +47,7 @@ const setCircle = (ownProps) => (canvas) => {
         windowHeight,
         windowWidth
     } = ownProps
+
     const height = windowHeight * 2
     const width = windowWidth * 2
 
@@ -213,7 +214,13 @@ const lifeCycle = {
             window.addEventListener('resize', () => {
                 clearTimeout(queue)
                 queue = setTimeout(() => {
-                    onResize(window.innerHeight, window.innerWidth)
+                    const ua = navigator.userAgent.toLowerCase()
+                    if(ua.match(/android|iphone/) !== null) {
+                        // スマホ用のサイズ調整
+                        onResize(window.screen.height, window.screen.width)
+                    }else{
+                        onResize(window.innerHeight, window.innerWidth)
+                    }
                     setCircle(canvas)
                 }, 100)
             })

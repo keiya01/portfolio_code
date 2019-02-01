@@ -64,7 +64,7 @@ export default class Circle extends Canvas {
         } = this
 
         context.beginPath()
-        context.font = "bold 34px Arial"
+        context.font = "bold 40px Arial"
         context.fillStyle = '#333'
         context.textAlign = "center";
         context.fillText(name, positionX, positionY)
@@ -170,7 +170,13 @@ export default class Circle extends Canvas {
         }
 
         let animSize = size
-        const animTime = 35
+        const ua = navigator.userAgent.toLowerCase()
+        // PC用のアニメーションスピード
+        let animTime = 55
+        // スマホ用のアニメーションスピード
+        if(ua.match(/android|iphone/) !== null) {
+            animTime = 35
+        }
         const circle = new Circle(context, name, positionX, positionY, animSize + animTime, color)
         circle.drawCircle(false)
 
