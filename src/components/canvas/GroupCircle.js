@@ -17,7 +17,7 @@ export default class GroupCircle extends Component {
         const title = 'Information'
         return (
             <div className={css(styles.wrapper)} >
-                <div className={css(styles.titleWrapper)}>
+                <div className={css(styles.titleWrapper, styles.movePosition)}>
                     <h3 className={css(styles.infoTitle, styles.fontResize)}>{title}</h3>
                 </div>
                 <canvas
@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         textAlign: 'center',
+    },
+    movePosition: {
+        '@media (max-width: 450px)':{
+            top: '20%'
+        }
     },
     infoTitle: {
         fontSize: 50,
