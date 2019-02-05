@@ -2,12 +2,12 @@ import { createStore as reduxCreateStore, applyMiddleware, combineReducers } fro
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-import window from './window'
+import works from './works'
 
 function createStore() {
   const store = reduxCreateStore(
     combineReducers({
-      window
+      works
     }),
     applyMiddleware(
       thunk,

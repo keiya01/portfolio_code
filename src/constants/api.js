@@ -1,0 +1,1 @@
+export const WORKS = "https://script.google.com/macros/s/AKfycbx1zqRJTh_4qbfopWyGS-4rqibT5OUKc5V_pwz_m_9Xbqus3FZy/exec"

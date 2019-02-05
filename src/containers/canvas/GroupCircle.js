@@ -50,11 +50,9 @@ const setCircle = (ownProps) => (canvas) => {
 
     const height = windowHeight * 2
     const width = windowWidth * 2
-
     canvas.height = height
     canvas.width = width
-    // canvas.style.height = height
-    // canvas.style.width = width
+
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, width, height)
     // スマートフォン用の設定
@@ -65,7 +63,7 @@ const setCircle = (ownProps) => (canvas) => {
             y: height * 0.6,
             size: width * 0.25,
             color: '#fff',
-            text: '学びの記録'
+            text: '学習記録'
         },
         {
             name: 'Works',

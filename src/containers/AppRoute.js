@@ -1,14 +1,15 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
-
-import * as WindowActions from '../modules/window'
+import * as Works from '../modules/works'
 
 import AppRoute from '../components/AppRoute'
+
 
 const display = "AppRoute"
 const component = AppRoute
 
 const initialProps = {
+    list: []
 }
 
 const canRenderProps = []
@@ -33,7 +34,7 @@ const redirectHashUri = (ownProps) => () => {
 
     const hasHash = uri.includes('/#/')
     if (!hasHash) {
-        // http://example.com/ 最後に「 / 」が入っているなら取り除く
+        // http://example.com/ 最後に「 / 」が入っていないなら付ける
         if (uri.slice(-1) !== '/') {
             // 最後の文字以外を取得
             uri += '/'
@@ -45,29 +46,35 @@ const redirectHashUri = (ownProps) => () => {
 
 // propsの変更を行わないhandler
 const handleProps = (ownProps) => ({
-    redirectHashUri
+    redirectHashUri,
 })
 
 const mapStateToProps = (state) => {
     const {
-        windowHeight,
-        windowWidth
-    } = state.window
+        data
+    } = state.works
     return {
-        windowHeight,
-        windowWidth
+        list: data
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+    getWorks: () => dispatch(Works.getWorks())
 })
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentWillMount() {
-        this.props.redirectHashUri()
-    }
-
+        const {
+            list,
+            getWorks,
+            redirectHashUri
+        } = this.props
+        if (list.length === 0) {
+            getWorks()
+        }
+        redirectHashUri()
+    },
 }
 
 const Enhance = compose(
