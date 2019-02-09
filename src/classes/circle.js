@@ -162,7 +162,7 @@ export default class Circle extends Canvas {
                 case 'Works':
                     props.history.push('/works')
                     return
-                case 'Blogs':
+                case 'Blog':
                     props.history.push('/blogs')
                     return
             }

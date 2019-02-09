@@ -30,7 +30,6 @@ const handleProps = (ownProps) => ({
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentDidUpdate(prevProps) {
-        console.log('scroll: ', prevProps, this.props)
         if (this.props.location !== prevProps.location) {
             window.scrollTo(0, 0)
         }

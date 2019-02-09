@@ -5,9 +5,26 @@ import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faCheck, faGrinSquint, faFrown, faCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {
+    faCheck,
+    faGrinSquint,
+    faFrown,
+    faCircle,
+    faSpinner,
+    faHandPointDown,
+    faLaptopCode
+} from '@fortawesome/free-solid-svg-icons'
 
-library.add(fab, faCheck, faGrinSquint, faFrown, faCircle, faSpinner)
+library.add(
+    fab,
+    faCheck,
+    faGrinSquint,
+    faFrown,
+    faCircle,
+    faSpinner,
+    faHandPointDown,
+    faLaptopCode
+)
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

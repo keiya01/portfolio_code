@@ -24,7 +24,7 @@ const IconListItem = (props) => {
 
 export default class WorkItem extends Component {
     nl2br = (str, icon, iconColor) => {
-        const regex = /(\\n)/g
+        const regex = /(\n)/g
         return str.split(regex).map((line, i) => {
             return line.match(regex)
                 ?
@@ -54,10 +54,9 @@ export default class WorkItem extends Component {
         return (
             <div
                 className={css(styles.item)}
-                onClick={() => onShowItem(this.animation, this.filter)}
+                onClick={() => onShowItem(this.animation, this.filter, this.props)}
                 style={{ height: 400, overflowY: 'hidden' }}
                 ref={(e) => this.animation = e}
-                ontouchstart=""
             >
                 {
                     image
@@ -117,14 +116,13 @@ export default class WorkItem extends Component {
 const styles = StyleSheet.create({
     item: {
         position: 'relative',
-        width: '100%',
+        width: '90%',
+        maxWidth: 480,
         borderRadius: 20,
         boxShadow: '2px 2px 10px #ddd, -2px -2px 10px #ddd',
-        marginBottom: 20,
-        ':active': {
-            boxShadow: 'none',
-            border: 'solid 1px #ddd'
-        }
+        margin: '0 auto',
+        backgroundColor: '#fff',
+        cursor: 'pointer'
     },
     image: {
         width: '100%',

@@ -12,9 +12,6 @@ export default class Canvas {
     setFillCanvas = () => {
         const {
             context,
-            name,
-            positionX,
-            positionY,
             color,
         } = this
         context.beginPath()

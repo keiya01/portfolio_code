@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
         }
     },
     canvas: {
-        backgroundColor: '#FA776D'
+        backgroundColor: '#e83e53'
     },
 })

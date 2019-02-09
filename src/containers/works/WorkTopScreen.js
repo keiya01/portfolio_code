@@ -26,21 +26,22 @@ const handleChange = (ownProps) => {
     }
 }
 
-const onShowItem = (ownProps) => (animation, filter) => {
+const onShowItem = (ownProps) => (animation, filter, props) => {
     const resetStyle = (animation, filter) => {
         animation.style.height = '400px'
         animation.style.overflowY = 'hidden'
         filter.style.display = 'block'
     }
+    
     // １個前と同じ要素をクリックしていたらリセットする
-    if(animation.style.height === '100%') {
+    if (animation.style.height === '100%') {
         resetStyle(animation, filter)
         return {
             prevAnimation: null,
             prevFilter: null
         }
     }
-
+    
     // １個前にクリックした要素をリセットする
     const {
         prevAnimation,
@@ -49,18 +50,24 @@ const onShowItem = (ownProps) => (animation, filter) => {
     if (prevAnimation && prevFilter) {
         resetStyle(prevAnimation, prevFilter)
     }
-
+    
     // クリックされた要素を表示する
     animation.style.height = '100%'
     animation.style.overflowY = 'none'
     filter.style.display = 'none'
     
-    // ページ左上からの絶対座標を求める
-    const rect = animation.getBoundingClientRect()
-    const y = rect.top + window.pageYOffset
-    // クリックした要素に移動
-    window.scrollTo(0, y)
+    // クリックしたアイテムの位置
+    const itemRect = animation.getBoundingClientRect()
+    
+    // スクロールする要素
+    const overflowScroll = props.getRefs('overflowScroll')
 
+    // クリックしたアイテムの位置
+    let y = overflowScroll.scrollTop + itemRect.top
+
+    // アイテムの表示箇所に移動
+    overflowScroll.scrollTop = y - 30
+    
     return {
         prevAnimation: animation,
         prevFilter: filter
@@ -77,7 +84,7 @@ const refHandler = () => {
     let refs = {}
     return {
         setRef: (ownProps) => name => e => (refs[name] = e),
-        getRefs: (ownProps) => () => refs
+        getRefs: (ownProps) => name => refs[name]
     }
 }
 

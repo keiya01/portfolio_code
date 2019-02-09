@@ -58,7 +58,7 @@ const setCircle = (ownProps) => (canvas) => {
     // スマートフォン用の設定
     const circleOptions = [
         {
-            name: 'Blogs',
+            name: 'Blog',
             x: width * 0.34,
             y: height * 0.6,
             size: width * 0.25,
@@ -92,13 +92,13 @@ const setCircle = (ownProps) => (canvas) => {
         let responsiveY = y
         let responsiveSize = size
         if (ua.match(/android|iphone/) === null) {
-            responsiveX *= name === 'Blogs' ? 1.25 : 0.89
-            responsiveY *= name === 'Blogs' ? 1.1 : 1.08
+            responsiveX *= name === 'Blog' ? 1.25 : 0.89
+            responsiveY *= name === 'Blog' ? 1.1 : 1.08
             responsiveSize *= width > 1000 ? 0.5 : 0.65
         }
         if (ua.match(/ipad/) !== null) {
-            responsiveX *= name === 'Blogs' ? 0.8 : 1.1
-            responsiveY *= name === 'Blogs' ? 1 : 1.1
+            responsiveX *= name === 'Blog' ? 0.8 : 1.1
+            responsiveY *= name === 'Blog' ? 1 : 1.1
             responsiveSize = width * 0.25
         }
 
