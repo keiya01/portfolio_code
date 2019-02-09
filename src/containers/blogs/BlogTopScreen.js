@@ -50,7 +50,8 @@ const scrollContainer = (ownProps) => (props) => {
 
 
     const containers = getContainer()
-    let scrollPosition = document.documentElement.scrollTop
+    const documentElem = window.document.scrollingElement || window.document.documentElement
+    let scrollPosition = documentElem.scrollTop
     const slideCount = Math.floor(scrollPosition / window.innerHeight)
     const container = containers[slideCount + 1]
     if (!container) {
@@ -93,19 +94,25 @@ const lifeCycle = {
             getRefs,
         } = this.props
 
+        const ua = navigator.userAgent.toLowerCase()
+        let windowHeight = 0
+        if (ua.match(/android|iphone/) !== null) {
+            // スマホ用のサイズ調整
+            windowHeight = window.screen.height
+        } else {
+            windowHeight = window.innerHeight
+        }
+
         const mainContainer = getRefs('container')
         const containers = getContainer()
 
         if (!mainContainer.style.height) {
-            console.log('changeHeight!!')
-            const totalContaners = Object.keys(containers).length
-            mainContainer.style.height = `${window.innerHeight * totalContaners}px`
+            // 最後の要素はrefに登録していないので最後の要素文をプラス1する
+            const totalContaners = Object.keys(containers).length + 1
+            mainContainer.style.height = `${windowHeight * totalContaners}px`
         }
 
         window.addEventListener('scroll', () => {
-            scrollContainer(this.props)
-        })
-        window.addEventListener('touchmove', () => {
             scrollContainer(this.props)
         })
     },
