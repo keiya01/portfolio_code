@@ -59,6 +59,7 @@ export default function BlogTopScreen(props) {
                 </BlogItem>
             </div>
             <div
+                ref={setContainer(4)}
                 style={{ ...fixedContainer }}>
                 <div
                     className={css(styles.nextBtnContainer)}>

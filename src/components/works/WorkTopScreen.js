@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         paddingBottom: '5%',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
     },
     tempBackground: {
         width: '100vw',
@@ -163,8 +163,9 @@ const styles = StyleSheet.create({
     list: {
         width: '100%',
         height: '100%',
-        padding: '20px 0',
+        padding: '100px 0',
         backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        boxShadow: '0 -2px 5px #ddd'
     },
     btnContainer: {
         width: '100%',

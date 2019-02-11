@@ -43,24 +43,51 @@ const refHandler = () => {
     }
 }
 
+const setWindowHeight = () => {
+    const ua = navigator.userAgent.toLowerCase()
+    let windowHeight = 0
+    if (ua.match(/android|iphone/) !== null) {
+        // スマホ用のサイズ調整
+        windowHeight = window.screen.height
+    } else {
+        windowHeight = window.innerHeight
+    }
+
+    return windowHeight
+}
+
 const scrollContainer = (ownProps) => (props) => {
     const {
         getContainer,
     } = props
 
+    const windowHeight = setWindowHeight()
 
     const containers = getContainer()
+    const totalContainers = Object.keys(containers).length
     const documentElem = window.document.scrollingElement || window.document.documentElement
     let scrollPosition = documentElem.scrollTop
-    const slideCount = Math.floor(scrollPosition / window.innerHeight)
+    const slideCount = Math.floor(scrollPosition / (windowHeight))
     const container = containers[slideCount + 1]
-    if (!container) {
+    // containerが存在しないか、最後の要素なら処理を終了する
+    if (!container || totalContainers === slideCount + 1) {
         return
     }
 
+    const rect = container.getBoundingClientRect()
     // scrollPositionが1倍以上なら画面の大きさに対して倍率が0になるように調整する
-    if (slideCount >= 1) {
-        scrollPosition -= (window.innerHeight * slideCount)
+    if (slideCount !== 0) {
+        scrollPosition -= (windowHeight * slideCount)
+    }
+
+    if (slideCount !== 0 && rect.top > -10) {
+        console.log('scroll')
+        const prevContainer = containers[slideCount]
+        window.scrollTo(0, window.pageYOffset)
+        prevContainer.style.top = `-${windowHeight - 10}px`
+        prevContainer.style.bottom = `${windowHeight - 10}px`
+        container.style.top = `0px`
+        container.style.bottom = `0px`
     }
 
     container.style.top = `-${scrollPosition}px`
@@ -68,11 +95,49 @@ const scrollContainer = (ownProps) => (props) => {
 
 }
 
+const showSlideAnimation = (containers, moveDistance, nextContainerId) => (timestamp) => {
+    const windowHeight = setWindowHeight()
+    const time = 80
+    moveDistance -= time
+    const container = containers[nextContainerId]
+
+    if (!container) {
+        console.log('success!!!!')
+        return
+    }
+
+
+    if (moveDistance <= 0) {
+        container.style.top = `0px`
+        container.style.bottom = `0px`
+        window.requestAnimationFrame(showSlideAnimation(containers, windowHeight, nextContainerId - 1))
+    } else {
+        console.log(moveDistance)
+        container.style.top = `-${moveDistance}px`
+        container.style.bottom = `${moveDistance}px`
+        window.requestAnimationFrame(showSlideAnimation(containers, moveDistance, nextContainerId))
+    }
+}
+
+const setShowSlideAnimation = (ownProps) => (containers) => {
+    const windowHeight = setWindowHeight()
+    const totalContainers = Object.keys(containers).length
+
+    for (let i = 1; i < totalContainers; i++) {
+        const container = containers[i]
+        container.style.top = `-${windowHeight}px`
+        container.style.bottom = `${windowHeight}px`
+    }
+
+    window.requestAnimationFrame(showSlideAnimation(containers, windowHeight, totalContainers))
+}
+
 // propsの変更を行わないhandler
 const handleProps = {
     ...refHandler(),
     ...containerRefHandle(),
-    scrollContainer
+    scrollContainer,
+    setShowSlideAnimation
 }
 
 const mapStateToProps = (state) => {
@@ -92,29 +157,26 @@ const lifeCycle = {
             scrollContainer,
             getContainer,
             getRefs,
+            setShowSlideAnimation
         } = this.props
 
-        const ua = navigator.userAgent.toLowerCase()
-        let windowHeight = 0
-        if (ua.match(/android|iphone/) !== null) {
-            // スマホ用のサイズ調整
-            windowHeight = window.screen.height
-        } else {
-            windowHeight = window.innerHeight
-        }
+        const windowHeight = setWindowHeight()
 
         const mainContainer = getRefs('container')
         const containers = getContainer()
 
+        // 親要素の高さをcontainerの数に合わせて大きくする
         if (!mainContainer.style.height) {
             // 最後の要素はrefに登録していないので最後の要素文をプラス1する
-            const totalContaners = Object.keys(containers).length + 1
+            const totalContaners = Object.keys(containers).length
             mainContainer.style.height = `${windowHeight * totalContaners}px`
         }
-
+        
         window.addEventListener('scroll', () => {
-            scrollContainer(this.props)
+            scrollContainer(this.props, windowHeight)
         })
+
+        setTimeout(() => setShowSlideAnimation(containers), 100)
     },
     componentWillUnmount() {
     },
