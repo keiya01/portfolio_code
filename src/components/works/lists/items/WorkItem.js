@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         objectFit: 'contain',
-        paddingBottom: 3,
+        padding: '3px 0',
         borderBottom: 'solid 1.5px #ccc'
     },
     noImage: {

@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        boxShadow: '0 3px 5px #555'
     },
     appreciationContainer: {
         textAlign: 'center'

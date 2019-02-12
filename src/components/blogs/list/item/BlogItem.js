@@ -44,7 +44,6 @@ export default function BlogItem(props) {
         icon,
         iconColor
     } = props
-    console.log(children)
     return (
         <div className={css(styles.blogItem)}>
             <div className={css(styles.descriptionContainer)}>

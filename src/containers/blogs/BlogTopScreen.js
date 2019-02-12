@@ -1,6 +1,5 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
-import { ReactDOM } from 'react'
 
 import DisplayComponent from '../../components/blogs/BlogTopScreen'
 
@@ -81,7 +80,6 @@ const scrollContainer = (ownProps) => (props) => {
     }
 
     if (slideCount !== 0 && rect.top > -10) {
-        console.log('scroll')
         const prevContainer = containers[slideCount]
         window.scrollTo(0, window.pageYOffset)
         prevContainer.style.top = `-${windowHeight - 10}px`
@@ -102,7 +100,6 @@ const showSlideAnimation = (containers, moveDistance, nextContainerId) => (times
     const container = containers[nextContainerId]
 
     if (!container) {
-        console.log('success!!!!')
         return
     }
 
@@ -112,7 +109,6 @@ const showSlideAnimation = (containers, moveDistance, nextContainerId) => (times
         container.style.bottom = `0px`
         window.requestAnimationFrame(showSlideAnimation(containers, windowHeight, nextContainerId - 1))
     } else {
-        console.log(moveDistance)
         container.style.top = `-${moveDistance}px`
         container.style.bottom = `${moveDistance}px`
         window.requestAnimationFrame(showSlideAnimation(containers, moveDistance, nextContainerId))
