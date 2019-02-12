@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     },
     noImageText: {
         fontSize: 25,
-        color: '#F9CDAD',
+        color: '#ccc',
     },
     contentContainer: {
         height: '100%',

@@ -35,7 +35,7 @@ export default function HomeTopScreen(props) {
                     <table className={css(styles.descriptionText)}>
                         <tbody>
                             <tr>
-                                <td>2017/06/01</td><td>プログラミング学習開始</td>
+                                <td　style={{ width: '40%' }}>2017/06/01</td><td>プログラミング学習開始</td>
                             </tr>
                             <tr>
                                 <td>2018/03/01</td><td>株式会社AppRunsでエンジニアとしてアルバイト</td>
