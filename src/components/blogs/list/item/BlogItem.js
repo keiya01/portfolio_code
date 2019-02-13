@@ -52,7 +52,7 @@ export default function BlogItem(props) {
                     {nl2br(children, icon, iconColor)}
                 </ul>
                 <p className={css(styles.uriText)} style={{color}}>
-                    URI <a className={css(styles.uri)} href={uri}>{uri}</a>
+                    URI <a className={css(styles.uri)} href={uri} target="_blank" rel="noopener noreferrer">{uri}</a>
                 </p>
             </div>
         </div>

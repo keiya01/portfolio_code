@@ -51,7 +51,7 @@ export default function BlogTopScreen(props) {
                 <BlogItem
                     title='Scrapbox'
                     color='#39ac86'
-                    uri='https://scrapbox.io/CodingNote'
+                    uri='https://scrapbox.io/CodingNote/CodingNote'
                     icon='laptop-code'
                     iconColor='#e83e53'>
                     Scrapboxは開発の中で気づいた点を簡単にメモしています。\n
