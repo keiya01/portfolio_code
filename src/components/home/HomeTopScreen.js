@@ -25,19 +25,19 @@ export default function HomeTopScreen(props) {
                 <div
                     ref={setContainer(1)}
                     className={css(styles.detailItemContainer, styles[container1Aime])}
-                    style={{ opacity: 0 }}
+                    style={{ opacity: 1 }}
                     >
-                    <h3 className={css(styles.detailItemTitle)}>プロフィール</h3>
+                    <h3 className={css(styles.detailItemTitle)}>Profile</h3>
                     <ul className={css(styles.profileList)}>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>生年月日</span>
-                            <div className={css(styles.detailItemItemBody)}>
+                            <div style={{paddingTop: 10}}>
                                 1999/02/10
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>プログラミング歴</span>
-                            <div className={css(styles.detailItemItemBody)}>
+                            <div style={{paddingTop: 10}}>
                                 2017/06/01 ~ 現在
                             </div>
                         </li>
@@ -46,9 +46,9 @@ export default function HomeTopScreen(props) {
                 <div
                     className={css(styles.detailItemContainer, styles[container2Aime])}
                     ref={setContainer(2)}
-                    style={{ opacity: 0 }}
+                    style={{ opacity: 1 }}
                 >
-                    <h3 className={css(styles.detailItemTitle)}>言語</h3>
+                    <h3 className={css(styles.detailItemTitle)}>Language</h3>
                     <ul className={css(styles.detailItemList)}>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>Ruby(Ruby on Rails)</span>
@@ -85,7 +85,7 @@ export default function HomeTopScreen(props) {
                 <div
                     className={css(styles.detailItemContainer, styles[container3Aime])}
                     ref={setContainer(3)}
-                    style={{ opacity: 0 }}
+                    style={{ opacity: 1 }}
                 >
                     <h3 className={css(styles.detailItemTitle)}>Career</h3>
                     <ul className={css(styles.detailItemList)}>
@@ -136,8 +136,8 @@ const slideLeftAnim = [
         '0%': {
             transform: 'translateX(-110%)'
         },
-        '50%': {
-            transform: 'translateX(10%)'
+        '45%': {
+            transform: 'translateX(7%)'
         },
         '100%': {
             transform: 'translateX(0)'
@@ -150,8 +150,8 @@ const slideRightAnim = [
         '0%': {
             transform: 'translateX(110%)'
         },
-        '50%':{
-            transform: 'translateX(-10%)'
+        '45%':{
+            transform: 'translateX(-7%)'
         },
         '100%': {
             transform: 'translateX(0)'

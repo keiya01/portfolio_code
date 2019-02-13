@@ -59,6 +59,7 @@ const slideShowContainer = (ownProps) => (props, containers) => {
     const documentElem = window.document.scrollingElement || window.document.documentElement
     let scrollPosition = documentElem.scrollTop
     const container = containers[containerId]
+    if(!container) return
     const containerPosition = container.getBoundingClientRect().top + (window.pageYOffset / 1.5)
     if (containerPosition <= scrollPosition) {
         container.style.opacity = 1
@@ -92,12 +93,27 @@ const lifeCycle = {
             slideShowContainer,
         } = this.props
         const containers = getContainers()
+        const totalContainers = Object.keys(containers).length
+        for(let i = 1; i < totalContainers + 1; i++) {
+            containers[i].style.opacity = 0
+        }
 
         window.addEventListener('scroll', () => {
             slideShowContainer(this.props, containers)
         })
+    },
+    componentWillUnmount() {
+        const {
+            isContainerAnimes,
+            handleChange
+        } = this.props
+        const nextIsContainerAnimes = isContainerAnimes
+        for(let i = 0; i < Object.keys(isContainerAnimes).length; i++) {
+            nextIsContainerAnimes[i] = false
+        }
+        handleChange('isContainerAnimes', nextIsContainerAnimes)
+        window.removeEventListener('scroll', () => {})
     }
-
 }
 
 const Enhance = compose(

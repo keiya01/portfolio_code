@@ -175,6 +175,7 @@ const lifeCycle = {
         setTimeout(() => setShowSlideAnimation(containers), 100)
     },
     componentWillUnmount() {
+        window.removeEventListener('scroll', () => {})
     },
 }
 
