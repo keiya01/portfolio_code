@@ -9,12 +9,14 @@ const initialProps = {
     list: [],
     isFetching: false,
     prevAnimation: null,
-    prevFilter: null
+    prevFilter: null,
+    isHeaderHide: true
 }
 
 const canRenderProps = [
     'list',
-    'isFetching'
+    'isFetching',
+    'isHeaderHide'
 ]
 
 // propsの値を変更する
@@ -60,7 +62,7 @@ const onShowItem = (ownProps) => (animation, filter, props) => {
     const itemRect = animation.getBoundingClientRect()
     
     // スクロールする要素
-    const overflowScroll = props.getRefs('overflowScroll')
+    const overflowScroll = props.getRef('overflowScroll')
 
     // クリックしたアイテムの位置
     let y = overflowScroll.scrollTop + itemRect.top
@@ -84,13 +86,38 @@ const refHandler = () => {
     let refs = {}
     return {
         setRef: (ownProps) => name => e => (refs[name] = e),
-        getRefs: (ownProps) => name => refs[name]
+        getRef: (ownProps) => name => refs[name]
+    }
+}
+
+const onHideHeader = (ownProps) => (props) => {
+    const {
+        getRef,
+        isHeaderHide,
+        handleChange
+    } = props
+
+    const container = getRef('container')
+    if (!container) {
+        return
+    }
+
+    const containerPosition = container.getBoundingClientRect().top
+    const containerHeight  = container.clientHeight
+    const changeingPosition = (containerPosition + containerHeight)
+    console.log(containerPosition, containerHeight)
+
+    if (changeingPosition <= 0 && isHeaderHide) {
+        handleChange('isHeaderHide', false)
+    } else if (changeingPosition >= 0 && !isHeaderHide) {
+        handleChange('isHeaderHide', true)
     }
 }
 
 // propsの変更を行わないhandler
 const handleProps = {
-    ...refHandler()
+    ...refHandler(),
+    onHideHeader,
 }
 
 const mapStateToProps = (state) => {
@@ -109,8 +136,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
-
-
+    componentDidMount() {
+        const {
+            getRef,
+            onHideHeader
+        } = this.props
+        const wrapper = getRef('overflowScroll')
+        wrapper.addEventListener('scroll', () => {
+            onHideHeader(this.props)
+        })
+    }
 }
 
 const Enhance = compose(

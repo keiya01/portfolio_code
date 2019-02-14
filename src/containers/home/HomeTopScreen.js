@@ -51,17 +51,17 @@ const slideShowContainer = (ownProps) => (props, containers) => {
         isContainerAnimes,
         handleChange
     } = ownProps
-    
+
     const nextIsContainerAnimes = isContainerAnimes
 
-    if (containerId === Object.keys(containers).length + 1 || nextIsContainerAnimes[containerId]) {
+    if (containerId >= Object.keys(containers).length + 1 || nextIsContainerAnimes[containerId]) {
         return
     }
 
     const documentElem = window.document.scrollingElement || window.document.documentElement
     let scrollPosition = documentElem.scrollTop
     const container = containers[containerId]
-    if(!container) return
+    if (!container) return
     const containerPosition = container.getBoundingClientRect().top + (window.pageYOffset / 1.5)
     if (containerPosition <= scrollPosition) {
         container.style.opacity = 1
@@ -77,17 +77,17 @@ const onHideHeader = (ownProps) => (props) => {
         isHeaderHide,
         handleChange
     } = props
-    
+
     const circleContainer = getRef('circleContainer')
-    if(!circleContainer) {
+    if (!circleContainer) {
         return
     }
-    
+
     const containerPosition = circleContainer.getBoundingClientRect().top
 
-    if(containerPosition <= 30) {
+    if (containerPosition <= 30) {
         handleChange('isHeaderHide', true)
-    }else if(containerPosition >= 0 && isHeaderHide) {
+    } else if (containerPosition >= 0 && isHeaderHide) {
         handleChange('isHeaderHide', false)
     }
 }
@@ -112,7 +112,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentDidMount() {
-        console.log('success')
         const {
             getContainers,
             slideShowContainer,
@@ -120,7 +119,7 @@ const lifeCycle = {
         } = this.props
         const containers = getContainers()
         const totalContainers = Object.keys(containers).length
-        for(let i = 1; i < totalContainers + 1; i++) {
+        for (let i = 1; i < totalContainers + 1; i++) {
             containers[i].style.opacity = 0
         }
 
@@ -136,14 +135,10 @@ const lifeCycle = {
             handleChange
         } = this.props
         const nextIsContainerAnimes = isContainerAnimes
-        for(let i = 0; i < Object.keys(isContainerAnimes).length; i++) {
+        for (let i = 1; i < Object.keys(isContainerAnimes).length + 1; i++) {
             nextIsContainerAnimes[i] = false
         }
         handleChange('isContainerAnimes', nextIsContainerAnimes)
-        window.removeEventListener('scroll', () => {
-            slideShowContainer(this.props, getContainers())
-            onHideHeader(this.props)
-        })
     }
 }
 

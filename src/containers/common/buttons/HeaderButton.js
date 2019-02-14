@@ -8,13 +8,13 @@ const display = "HeaderButton"
 const initialProps = {
     isClicked: false,
     isStart: false,
-    isEnd: false,
+    isFinish: false,
 }
 
 const canRenderProps = [
     'isClicked',
     'isStart',
-    'isEnd',
+    'isFinish',
     'isHide'
 ]
 
@@ -27,9 +27,18 @@ const handleChange = (ownProps) => {
     }
 }
 
+const resetAnimation = (ownProps) => () => {
+    return {
+        isClicked: false,
+        isStart: false,
+        isFinish: false
+    }
+}
+
 // propsの変更を行うhandler
 const stateHandler = {
     handleChange,
+    resetAnimation
 }
 
 const refHandler = () => {
@@ -40,8 +49,13 @@ const refHandler = () => {
     }
 }
 
+let isUnmouted = false
 let clickFlg = false
 const onHeaderClick = (ownProps) => (props) => {
+    if(isUnmouted) {
+        return
+    }
+
     const {
         isStart,
         handleChange
@@ -55,13 +69,13 @@ const onHeaderClick = (ownProps) => (props) => {
 
     handleChange('isStart', !isStart)
     if(!isStart) {
-        handleChange('isEnd', false)
+        handleChange('isFinish', false)
         Promise.resolve(setTimeout(() => {
             handleChange('isClicked', true)
             clickFlg = false
         }, 500))
     }else{
-        handleChange('isEnd', true)
+        handleChange('isFinish', true)
         handleChange('isClicked', false)
         clickFlg = false
     }
@@ -85,7 +99,25 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 // componentDidMountなどのライフサイクルを記述する
-const lifeCycle = {}
+const lifeCycle = {
+    componentDidMount() {
+        isUnmouted = false
+    },
+    componentDidUpdate() {
+        const {
+            isHide,
+            resetAnimation,
+            isStart,
+            onHeaderClick
+        } = this.props
+        if(isHide) {
+            resetAnimation()
+        }
+    },
+    componentWillUnmount() {
+        isUnmouted = true
+    }
+}
 
 const Enhance = compose(
     setDisplayName(display),

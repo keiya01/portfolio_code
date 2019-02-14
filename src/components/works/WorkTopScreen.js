@@ -7,6 +7,7 @@ import NextScreenButton from '../common/buttons/NextScreenButton'
 import List from '../common/List'
 import LoadingItem from '../common/LoadingItem'
 import { setWindowHeight } from '../../util/responsive';
+import HeaderButton from '../../containers/common/buttons/HeaderButton';
 
 export default function WorkTopScreen(props) {
     const {
@@ -14,25 +15,35 @@ export default function WorkTopScreen(props) {
         onShowItem,
         isFetching,
         setRef,
-        getRefs
+        getRefs,
+        isHeaderHide
     } = props
 
     const height = setWindowHeight()
 
     return (
-        <div className={css(styles.container)} style={{height}}>
-            <div className={css(styles.titleContainer)} style={{height}}>
+        <div className={css(styles.container)} style={{ height }}>
+            <HeaderButton
+                currentPage='works'
+                isHide={isHeaderHide}
+            />
+            <div
+                className={css(styles.titleContainer)}
+                style={{ height }}>
                 <h1 className={css(styles.title)}>Works</h1>
                 <FontAwesomeIcon
                     icon='hand-point-down'
                     className={css(styles.handDown)}
                 />
             </div>
-            <div 
-            className={css(styles.listContainer)}
-            ref={setRef('overflowScroll')}
+            <div
+                className={css(styles.listContainer)}
+                ref={setRef('overflowScroll')}
             >
-                <div className={css(styles.tempBackground)} style={{height}} />
+                <div
+                    className={css(styles.tempBackground)}
+                    style={{ height }}
+                    ref={setRef('container')}/>
                 {
                     isFetching
                         ?

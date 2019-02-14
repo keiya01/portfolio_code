@@ -8,9 +8,11 @@ import DisplayComponent from '../../components/blogs/BlogTopScreen'
 const display = 'BlogTopScreen'
 
 const initialProps = {
+    isHeaderHide: true
 }
 
 const canRenderProps = [
+    'isHeaderHide'
 ]
 
 // propsの値を変更する
@@ -117,12 +119,36 @@ const setShowSlideAnimation = (ownProps) => (containers) => {
     window.requestAnimationFrame(showSlideAnimation(containers, windowHeight, totalContainers))
 }
 
+const onHideHeader = (ownProps) => (props) => {
+    const {
+        getContainer,
+        isHeaderHide,
+        handleChange
+    } = props
+
+    const container = getContainer()[1]
+    if (!container) {
+        return
+    }
+
+    const containerPosition = container.getBoundingClientRect().top
+    const containerHeight  = (container.clientHeight * 0.5)
+    const changeingPosition = (containerPosition + containerHeight)
+
+    if (changeingPosition <= 0 && isHeaderHide) {
+        handleChange('isHeaderHide', false)
+    } else if (changeingPosition >= 0 && !isHeaderHide) {
+        handleChange('isHeaderHide', true)
+    }
+}
+
 // propsの変更を行わないhandler
 const handleProps = {
     ...refHandler(),
     ...containerRefHandle(),
     scrollContainer,
-    setShowSlideAnimation
+    setShowSlideAnimation,
+    onHideHeader
 }
 
 const mapStateToProps = (state) => {
@@ -142,7 +168,8 @@ const lifeCycle = {
             scrollContainer,
             getContainer,
             getRefs,
-            setShowSlideAnimation
+            setShowSlideAnimation,
+            onHideHeader
         } = this.props
 
         const windowHeight = setWindowHeight()
@@ -159,6 +186,7 @@ const lifeCycle = {
         
         window.addEventListener('scroll', () => {
             scrollContainer(this.props, windowHeight)
+            onHideHeader(this.props)
         })
 
         setTimeout(() => setShowSlideAnimation(containers), 100)

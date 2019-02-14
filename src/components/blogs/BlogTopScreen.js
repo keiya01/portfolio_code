@@ -4,11 +4,13 @@ import PreparationScreen from '../common/screen/PreparationScreen';
 import BlogItem from './list/item/BlogItem';
 import NextScreenButton from '../common/buttons/NextScreenButton';
 import { setWindowHeight } from '../../util/responsive';
+import HeaderButton from '../../containers/common/buttons/HeaderButton';
 
 export default function BlogTopScreen(props) {
     const {
         setContainer,
         setRef,
+        isHeaderHide
     } = props
 
     const fixedContainer = {
@@ -25,6 +27,9 @@ export default function BlogTopScreen(props) {
         <div
             className={css(styles.container)}
             ref={setRef('container')}>
+            <HeaderButton
+                currentPage='blog'
+                isHide={isHeaderHide} />
             <div
                 ref={setContainer(1)}
                 style={{ zIndex: 4, ...fixedContainer }}>

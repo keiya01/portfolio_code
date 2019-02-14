@@ -22,13 +22,36 @@ const MenuItem = (props) => {
 
 }
 
+const setHubergerAnimation = (isStart, isFinish) => {
+    switch (true) {
+        case isStart:
+            return {
+                top: 'openHumbergerTop',
+                middle: 'openHumbergerMiddle',
+                bottom: 'openHumbergerBottom'
+            }
+        case isFinish:
+            return {
+                top: 'closeHumbergerTop',
+                middle: 'closeHumbergerMiddle',
+                bottom: 'closeHumbergerBottom'
+            }
+        default:
+            return {
+                top: null,
+                middle: null,
+                bottom: null
+            }
+    }
+}
+
 export default function HeaderButton(props) {
 
     const {
         currentPage,
         isClicked,
         isStart,
-        isEnd,
+        isFinish,
         isHide,
         onHeaderClick
     } = props
@@ -52,8 +75,15 @@ export default function HeaderButton(props) {
     ]
 
     const startAnimation = isStart && 'clickedShowAnimation'
-    const endAnimation = isEnd && 'clickedHideAnimation'
+    const endAnimation = isFinish && 'clickedHideAnimation'
     const headerContainer = isClicked ? 'menuContainer' : 'btnContainer'
+    const humbergerAnimation = setHubergerAnimation(isStart, isFinish)
+
+    if (isStart) {
+        window.addEventListener('click', () => {
+            onHeaderClick(props)
+        })
+    }
 
     return (
         <Fragment>
@@ -70,6 +100,11 @@ export default function HeaderButton(props) {
                     style={{ display: 'flex' }}
                     onClick={() => onHeaderClick(props)}
                 >
+                    <div className={css(styles.humbergerContainer)}>
+                        <div className={css(styles.humbergerTop, styles[humbergerAnimation.top])} />
+                        <div className={css(styles.humbergerMiddle, styles[humbergerAnimation.middle])} />
+                        <div className={css(styles.humbergerBottom, styles[humbergerAnimation.bottom])} />
+                    </div>
                     {
                         isClicked
                         &&
@@ -99,17 +134,24 @@ export default function HeaderButton(props) {
 const clickedShowAnime = [
     {
         '0%': {
-            borderRadius: '50%'
-        },
-        '50%': {
-            borderRadius: '0%',
             height: 50,
             width: 50,
+            borderRadius: '50%'
+        },
+        '30%': {
+            height: 50,
+            width: 50,
+            borderRadius: '0%'
+        },
+        '60%': {
+            height: 50,
+            width: 230,
+            borderRadius: '0%'
         },
         '100%': {
-            borderRadius: '0%',
             height: 350,
             width: 230,
+            borderRadius: '0%'
         }
     }
 ]
@@ -164,11 +206,58 @@ const styles = StyleSheet.create({
             right: 30
         }
     },
+    // ハンバーガーメニューのスタイル begin
+    humbergerContainer: {
+        ':nth-child(1n) > div': {
+            position: 'absolute',
+            zIndex: 1000,
+            right: 13,
+            height: 2,
+            width: 25,
+            backgroundColor: '#fff',
+            display: 'inline-block',
+        },
+    },
+    humbergerTop: {
+        top: 15.5,
+    },
+    openHumbergerTop: {
+        transitionDuration: '1s',
+        transform: 'translateY(8px) rotateZ(90deg) rotate(45deg)',
+    },
+    closeHumbergerTop: {
+        transitionDuration: '1s',
+        transform: 'translateY(0px) rotateZ(0deg) rotate(0deg)',
+    },
+    humbergerMiddle: {
+        top: 24,
+    },
+    openHumbergerMiddle: {
+        transitionDuration: '1s',
+        opacity: 0
+    },
+    closeHumbergerMiddle: {
+        transitionDuration: '1s',
+        transform: 'translateY(0px) rotateY(180deg) rotate(0deg)',
+    },
+    humbergerBottom: {
+        top: 32.5,
+    },
+    openHumbergerBottom: {
+        transitionDuration: '1s',
+        transform: 'translateY(-8px) rotateZ(-90deg) rotate(-45deg)',
+    },
+    closeHumbergerBottom: {
+        transitionDuration: '1s',
+        transform: 'translateY(0px) rotateZ(0deg) rotate(0deg)',
+    },
+    // ハンバーガーメニューのスタイル end
     btnContainer: {
         height: 50,
         width: 50,
         borderRadius: '50%',
         backgroundColor: '#e83e53',
+        cursor: 'pointer'
     },
     menuContainer: {
         height: 350,
