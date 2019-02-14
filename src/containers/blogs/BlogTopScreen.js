@@ -1,6 +1,8 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
 
+import { setWindowHeight } from '../../util/responsive'
+
 import DisplayComponent from '../../components/blogs/BlogTopScreen'
 
 const display = 'BlogTopScreen'
@@ -40,19 +42,6 @@ const refHandler = () => {
         setRef: (ownProps) => name => e => (refs[name] = e),
         getRefs: (ownProps) => (name) => refs[name]
     }
-}
-
-const setWindowHeight = () => {
-    const ua = navigator.userAgent.toLowerCase()
-    let windowHeight = 0
-    if (ua.match(/android|iphone/) !== null) {
-        // スマホ用のサイズ調整
-        windowHeight = window.screen.height
-    } else {
-        windowHeight = window.innerHeight
-    }
-
-    return windowHeight
 }
 
 const scrollContainer = (ownProps) => (props) => {
@@ -95,7 +84,7 @@ const scrollContainer = (ownProps) => (props) => {
 
 const showSlideAnimation = (containers, moveDistance, nextContainerId) => (timestamp) => {
     const windowHeight = setWindowHeight()
-    const time = 80
+    const time = 70
     moveDistance -= time
     const container = containers[nextContainerId]
 

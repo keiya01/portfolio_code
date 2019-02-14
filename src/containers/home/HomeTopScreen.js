@@ -11,11 +11,13 @@ const initialProps = {
         1: false,
         2: false,
         3: false
-    }
+    },
+    isHeaderHide: false
 }
 
 const canRenderProps = [
-    'containerId'
+    'containerId',
+    'isHeaderHide'
 ]
 
 // propsの値を変更する
@@ -69,10 +71,32 @@ const slideShowContainer = (ownProps) => (props, containers) => {
     }
 }
 
+const onHideHeader = (ownProps) => (props) => {
+    const {
+        getRef,
+        isHeaderHide,
+        handleChange
+    } = props
+    
+    const circleContainer = getRef('circleContainer')
+    if(!circleContainer) {
+        return
+    }
+    
+    const containerPosition = circleContainer.getBoundingClientRect().top
+
+    if(containerPosition <= 30) {
+        handleChange('isHeaderHide', true)
+    }else if(containerPosition >= 0 && isHeaderHide) {
+        handleChange('isHeaderHide', false)
+    }
+}
+
 // propsの変更を行わないhandler
 const handleProps = {
     ...refHandler(),
-    slideShowContainer
+    slideShowContainer,
+    onHideHeader
 }
 
 const mapStateToProps = (state) => {
@@ -88,9 +112,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentDidMount() {
+        console.log('success')
         const {
             getContainers,
             slideShowContainer,
+            onHideHeader
         } = this.props
         const containers = getContainers()
         const totalContainers = Object.keys(containers).length
@@ -100,11 +126,13 @@ const lifeCycle = {
 
         window.addEventListener('scroll', () => {
             slideShowContainer(this.props, containers)
+            onHideHeader(this.props)
         })
     },
     componentWillUnmount() {
         const {
             isContainerAnimes,
+            getContainers,
             handleChange
         } = this.props
         const nextIsContainerAnimes = isContainerAnimes
@@ -112,7 +140,10 @@ const lifeCycle = {
             nextIsContainerAnimes[i] = false
         }
         handleChange('isContainerAnimes', nextIsContainerAnimes)
-        window.removeEventListener('scroll', () => {})
+        window.removeEventListener('scroll', () => {
+            slideShowContainer(this.props, getContainers())
+            onHideHeader(this.props)
+        })
     }
 }
 

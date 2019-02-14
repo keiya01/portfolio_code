@@ -2,20 +2,22 @@ import React, { Fragment } from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
 import GroupCirle from '../../containers/canvas/GroupCircle'
+import HeaderButton from '../../containers/common/buttons/HeaderButton'
 
 export default function HomeTopScreen(props) {
     const {
         setContainer,
         setRef,
-        isContainerAnimes
+        isContainerAnimes,
+        isHeaderHide
     } = props
     const container1Aime = isContainerAnimes[1] ? 'slideLeft' : ""
     const container2Aime = isContainerAnimes[2] ? 'slideRight' : ""
     const container3Aime = isContainerAnimes[3] ? 'slideLeft' : ""
-    console.log(isContainerAnimes)
     return (
         <Fragment>
             <div className={css(styles.container)}>
+                <HeaderButton currentPage='home' isHide={isHeaderHide} />
                 <div className={css(styles.profileContainer)}>
                     <img src={require('../../assets/img/thumbnail.jpg')} className={css(styles.image)} />
                     <p className={css(styles.name)}>Keiya Sasaki</p>
@@ -26,22 +28,21 @@ export default function HomeTopScreen(props) {
                     ref={setContainer(1)}
                     className={css(styles.detailItemContainer, styles[container1Aime])}
                     style={{ opacity: 1 }}
-                    >
+                >
                     <h3 className={css(styles.detailItemTitle)}>Profile</h3>
-                    <ul className={css(styles.profileList)}>
-                        <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>生年月日</span>
-                            <div style={{paddingTop: 10}}>
-                                1999/02/10
-                            </div>
-                        </li>
-                        <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>プログラミング歴</span>
-                            <div style={{paddingTop: 10}}>
-                                2017/06/01 ~ 現在
-                            </div>
-                        </li>
-                    </ul>
+                    <table className={css(styles.profileList)} style={{ margin: '0 auto', textAlign: 'center' }}>
+                        <tbody>
+                            <tr className={css(styles.detailItemItem)}>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)} >生年月日</td><td>1999/02/10</td>
+                            </tr>
+                            <tr className={css(styles.detailItemItem)}>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>好きな言語</td><td>React , Go</td>
+                            </tr>
+                            <tr className={css(styles.detailItemItem)}>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>興味分野</td><td>UI/UX , マーケティング</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div
                     className={css(styles.detailItemContainer, styles[container2Aime])}
@@ -53,31 +54,31 @@ export default function HomeTopScreen(props) {
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>Ruby(Ruby on Rails)</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                独学で1年間学習。その間に3つ程アプリを作成。
+                                独学で<span style={{ fontWeight: 'bold' }}>1年間</span>学習。その間に3つ程アプリを作成。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>PHP(FuelPHP)</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                アルバイト先の企業にてアプリ紹介サイト作成に半年ほど使用。
+                                アルバイト先の企業にてアプリ紹介サイト作成に<span style={{ fontWeight: 'bold' }}>半年</span>ほど使用。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>Go</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にてAPIサーバーなどの作成に使用。
+                                個人開発にて<span style={{ fontWeight: 'bold' }}>半年</span>ほどAPIサーバーなどの作成に使用。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>React</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にてこのPortfolioやその他のサービスの作成に使用。
+                                個人開発にて<span style={{ fontWeight: 'bold' }}>半年</span>ほどこのPortfolioやその他のサービスの作成に使用。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>ReactNative</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                アルバイト先の企業にて様々なアプリの作成に使用。
+                                アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>半年以上</span>様々なアプリの作成に使用。
                             </div>
                         </li>
                     </ul>
@@ -98,13 +99,15 @@ export default function HomeTopScreen(props) {
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>2018/03/01</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                株式会社AppRunsでエンジニアとしてアルバイト
+                                株式会社AppRunsにてエンジニアとしてアルバイトを開始
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <GroupCirle history={props.history} />
+            <div ref={setRef('circleContainer')}>
+                <GroupCirle history={props.history} />
+            </div>
         </Fragment>
     )
 }
@@ -150,7 +153,7 @@ const slideRightAnim = [
         '0%': {
             transform: 'translateX(110%)'
         },
-        '45%':{
+        '45%': {
             transform: 'translateX(-7%)'
         },
         '100%': {
@@ -242,9 +245,13 @@ const styles = StyleSheet.create({
         marginBottom: 50
     },
     profileList: {
-        textAlign: 'center',
         listStyle: 'none',
         padding: 0,
+    },
+    profileTable: {
+        textAlign: 'center',
+        width: '40%',
+        paddingBottom: 8
     },
     detailItemList: {
         listStyle: 'none',
@@ -256,7 +263,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#757575',
         paddingBottom: 20,
-        '@media(max-width: 480px)':{
+        '@media(max-width: 480px)': {
             fontSize: 14
         }
     },
@@ -266,7 +273,8 @@ const styles = StyleSheet.create({
     },
     detailItemItemBody: {
         paddingTop: 10,
-        paddingLeft: 12
+        paddingLeft: 12,
+        letterSpacing: '0.05em'
     },
     slideLeft: {
         animationName: slideLeftAnim,

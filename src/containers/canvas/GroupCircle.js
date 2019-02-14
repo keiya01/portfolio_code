@@ -1,6 +1,8 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
 
+import { setWindowHeight } from '../../util/responsive'
+
 import Circle from '../../classes/circle'
 import { optionStore } from '../../classes/circle'
 import DisplayComponent from '../../components/canvas/GroupCircle'
@@ -12,7 +14,7 @@ const display = "GroupCircle"
 
 const initialProps = {
     canvas: null,
-    windowHeight: window.innerHeight,
+    windowHeight: setWindowHeight(),
     windowWidth: window.innerWidth,
     isCircleClicked: false
 }

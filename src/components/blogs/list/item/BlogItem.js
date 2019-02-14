@@ -42,17 +42,19 @@ export default function BlogItem(props) {
         color,
         uri,
         icon,
-        iconColor
+        iconColor,
+        height,
+        body
     } = props
     return (
-        <div className={css(styles.blogItem)}>
+        <div className={css(styles.blogItem)} style={{height}}>
             <div className={css(styles.descriptionContainer)}>
                 <h3 className={css(styles.headerTitle)} style={{color}}>{title}</h3>
                 <ul className={css(styles.description)}>
                     {nl2br(children, icon, iconColor)}
                 </ul>
                 <p className={css(styles.uriText)} style={{color}}>
-                    URI <a className={css(styles.uri)} href={uri} target="_blank" rel="noopener noreferrer">{uri}</a>
+                    URI <a className={css(styles.uri)} href={uri} target="_blank" rel="noopener noreferrer">{body}</a>
                 </p>
             </div>
         </div>
@@ -63,7 +65,6 @@ const styles = StyleSheet.create({
     blogItem: {
         backgroundColor: '#fff',
         width: '100vw',
-        height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

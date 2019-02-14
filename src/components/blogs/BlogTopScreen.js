@@ -3,11 +3,12 @@ import { StyleSheet, css } from 'aphrodite'
 import PreparationScreen from '../common/screen/PreparationScreen';
 import BlogItem from './list/item/BlogItem';
 import NextScreenButton from '../common/buttons/NextScreenButton';
+import { setWindowHeight } from '../../util/responsive';
 
 export default function BlogTopScreen(props) {
     const {
         setContainer,
-        setRef
+        setRef,
     } = props
 
     const fixedContainer = {
@@ -18,6 +19,8 @@ export default function BlogTopScreen(props) {
         right: 0,
     }
 
+    const height = setWindowHeight()
+
     return (
         <div
             className={css(styles.container)}
@@ -25,7 +28,7 @@ export default function BlogTopScreen(props) {
             <div
                 ref={setContainer(1)}
                 style={{ zIndex: 4, ...fixedContainer }}>
-                <div className={css(styles.titleContainer)}>
+                <div className={css(styles.titleContainer)} style={{ height }}>
                     <h1 className={css(styles.title)}>Blog</h1>
                 </div>
             </div>
@@ -36,8 +39,10 @@ export default function BlogTopScreen(props) {
                     title='Qiita'
                     color='#55c500'
                     uri='https://qiita.com/keiya01'
+                    body='qiita.com/keiya01'
                     icon='laptop-code'
                     iconColor='#e83e53'
+                    height={height}
                 >
                     Qiitaでは日々の開発で発見した課題への解決方法や自分の考えをまとめたものを掲載しています。\n
                     メモというよりも外部への情報発信を意識しており、出来るだけクオリティーを高くし、
@@ -52,8 +57,10 @@ export default function BlogTopScreen(props) {
                     title='Scrapbox'
                     color='#39ac86'
                     uri='https://scrapbox.io/CodingNote/CodingNote'
+                    body='scrapbox.io/CodingNote'
                     icon='laptop-code'
-                    iconColor='#e83e53'>
+                    iconColor='#e83e53'
+                    height={height}>
                     Scrapboxは開発の中で気づいた点を簡単にメモしています。\n
                     具体的には、記事を読んでいて参考になったコーディングの手法や、デザインパターンなどに対する自分なりの解釈、自分がコードを書いていて難しいと感じたことをメモとして残しています。
                 </BlogItem>
@@ -61,8 +68,7 @@ export default function BlogTopScreen(props) {
             <div
                 ref={setContainer(4)}
                 style={{ ...fixedContainer }}>
-                <div
-                    className={css(styles.nextBtnContainer)}>
+                <div className={css(styles.nextBtnContainer)} style={{ height }}>
                     <div className={css(styles.appreciationContainer)}>
                         <h3 className={css(styles.appreciationText)}>Thank you :)</h3>
                     </div>
@@ -97,7 +103,6 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         width: '100vw',
-        height: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -126,7 +131,6 @@ const styles = StyleSheet.create({
     },
     nextBtnContainer: {
         width: '100vw',
-        height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

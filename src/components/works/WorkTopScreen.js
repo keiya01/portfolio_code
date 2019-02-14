@@ -6,6 +6,7 @@ import WorkItem from './lists/items/WorkItem'
 import NextScreenButton from '../common/buttons/NextScreenButton'
 import List from '../common/List'
 import LoadingItem from '../common/LoadingItem'
+import { setWindowHeight } from '../../util/responsive';
 
 export default function WorkTopScreen(props) {
     const {
@@ -15,9 +16,12 @@ export default function WorkTopScreen(props) {
         setRef,
         getRefs
     } = props
+
+    const height = setWindowHeight()
+
     return (
-        <div className={css(styles.container)}>
-            <div className={css(styles.titleContainer)}>
+        <div className={css(styles.container)} style={{height}}>
+            <div className={css(styles.titleContainer)} style={{height}}>
                 <h1 className={css(styles.title)}>Works</h1>
                 <FontAwesomeIcon
                     icon='hand-point-down'
@@ -28,7 +32,7 @@ export default function WorkTopScreen(props) {
             className={css(styles.listContainer)}
             ref={setRef('overflowScroll')}
             >
-                <div className={css(styles.tempBackground)} />
+                <div className={css(styles.tempBackground)} style={{height}} />
                 {
                     isFetching
                         ?
@@ -98,7 +102,6 @@ const movingHandDown = [
 const styles = StyleSheet.create({
     container: {
         width: '100vw',
-        height: '100vh',
         backgroundColor: '#fff',
         overflowY: 'scroll'
         // paddingTop: 80,
@@ -111,7 +114,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
         width: '100vw',
-        height: '100vh',
     },
     title: {
         fontSize: 80,
@@ -158,7 +160,6 @@ const styles = StyleSheet.create({
     },
     tempBackground: {
         width: '100vw',
-        height: '100vh'
     },
     list: {
         width: '100%',
