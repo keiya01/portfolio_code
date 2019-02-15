@@ -131,6 +131,26 @@ export default function HeaderButton(props) {
     )
 }
 
+const showHeader = [
+    {
+        '0%': {
+            transform: 'scale(0, 0)'
+        },
+        '20%': {
+            transform: 'scale(1.3, 1.3)'
+        },
+        '40%':{
+            transform: 'scale(1, 1)'
+        },
+        '60%': {
+            transform: 'scale(1.1, 1.1)'
+        },
+        '100%': {
+            transform: 'scale(1, 1)'
+        }
+    }
+]
+
 const clickedShowAnime = [
     {
         '0%': {
@@ -201,6 +221,9 @@ const styles = StyleSheet.create({
         right: 60,
         zIndex: 1000,
         boxShadow: '0 0 5px #888',
+        animationDuration: '1s',
+        animationTimingFunction: 'easy',
+        animationName: showHeader,
         '@media(max-width: 480px)': {
             top: 30,
             right: 30

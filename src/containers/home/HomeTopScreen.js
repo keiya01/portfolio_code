@@ -2,6 +2,7 @@ import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKey
 import { connect } from 'react-redux'
 
 import DisplayComponent from '../../components/home/HomeTopScreen'
+import { setWindowHeight } from '../../util/responsive';
 
 const display = "HomeTopScreen"
 
@@ -12,7 +13,7 @@ const initialProps = {
         2: false,
         3: false
     },
-    isHeaderHide: false
+    isHeaderHide: true
 }
 
 const canRenderProps = [
@@ -62,9 +63,8 @@ const slideShowContainer = (ownProps) => (props, containers) => {
     let scrollPosition = documentElem.scrollTop
     const container = containers[containerId]
     if (!container) return
-    const containerHeight = container.clientHeight
-    const containerPosition = (container.getBoundingClientRect().top + window.pageYOffset) - containerHeight
-    console.log(containerPosition, window.pageYOffset)
+    const windowHeight = setWindowHeight()
+    const containerPosition = (container.getBoundingClientRect().top + window.pageYOffset) - (windowHeight / 2)
     if (containerPosition <= scrollPosition) {
         container.style.opacity = 1
         nextIsContainerAnimes[containerId] = true
@@ -79,6 +79,11 @@ const onHideHeader = (ownProps) => (props) => {
         isHeaderHide,
         handleChange
     } = props
+
+    if(30 > window.pageYOffset > 0 && isHeaderHide) {
+        handleChange('isHeaderHide', false)
+        return
+    }
 
     const circleContainer = getRef('circleContainer')
     if (!circleContainer) {

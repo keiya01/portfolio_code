@@ -24,6 +24,7 @@ export default function HomeTopScreen(props) {
                 </div>
             </div>
             <div className={css(styles.detailContainer)}>
+            <div className={css(styles.line)}/>
                 <div
                     ref={setContainer(1)}
                     className={css(styles.detailItemContainer, styles[container1Aime])}
@@ -44,6 +45,7 @@ export default function HomeTopScreen(props) {
                         </tbody>
                     </table>
                 </div>
+                <div className={css(styles.line)}/>
                 <div
                     className={css(styles.detailItemContainer, styles[container2Aime])}
                     ref={setContainer(2)}
@@ -83,6 +85,7 @@ export default function HomeTopScreen(props) {
                         </li>
                     </ul>
                 </div>
+                <div className={css(styles.line)}/>
                 <div
                     className={css(styles.detailItemContainer, styles[container3Aime])}
                     ref={setContainer(3)}
@@ -108,7 +111,7 @@ export default function HomeTopScreen(props) {
             <div ref={setRef('circleContainer')}>
                 <GroupCirle history={props.history} />
             </div>
-        </Fragment>
+        </Fragment >
     )
 }
 
@@ -168,7 +171,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100vw',
-        height: '100vh'
+        height: '100vh',
+    },
+    line:{
+        width: '100%',
+        border: '1px solid #e83e53'
     },
     profileContainer: {
         display: 'flex',
@@ -220,7 +227,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
-        padding: '20px 10px'
     },
     detailTitle: {
         fontSize: 50,
@@ -230,12 +236,9 @@ const styles = StyleSheet.create({
     detailItemContainer: {
         width: '90%',
         maxWidth: 410,
-        padding: '10px',
-        paddingTop: 25,
-        margin: '0 auto',
-        marginBottom: 280,
+        padding: '80px 10px',
+        margin: '100px auto',
         background: '#fff',
-        borderRadius: 20,
     },
     detailItemTitle: {
         color: '#e83e53',
