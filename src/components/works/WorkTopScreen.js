@@ -15,7 +15,7 @@ export default function WorkTopScreen(props) {
         onShowItem,
         isFetching,
         setRef,
-        getRefs,
+        getRef,
         isHeaderHide
     } = props
 
@@ -38,7 +38,10 @@ export default function WorkTopScreen(props) {
             </div>
             <div
                 className={css(styles.listContainer)}
-                ref={setRef('overflowScroll')}
+                ref={(e) => {
+                    setRef('overflowScroll')(e)
+                    setRef('scrollContainer')(e)
+                }}
             >
                 <div
                     className={css(styles.tempBackground)}
@@ -66,7 +69,7 @@ export default function WorkTopScreen(props) {
                                                 onShowItem={onShowItem}
                                                 key={index}
                                                 {...item}
-                                                getRefs={getRefs}
+                                                getRef={getRef}
                                             />
                                         </div>
                                     )
@@ -133,14 +136,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         animationName: movingTextSpace,
         animationTimingFunction: 'ease-in-out',
-        animationDuration: '2s',
+        animationDuration: '500ms',
         animationDelay: '0s',
         animationFillMode: 'forwards',
         paddingLeft: 15,
         '@media(max-width: 375px)': {
             paddingLeft: 5,
             fontSize: 60,
-            animationDuration: '1s'
         }
     },
     handDown: {
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
         animationName: movingHandDown,
         animationTimingFunction: 'linear',
         animationDuration: '800ms',
-        animationDelay: '2.5s',
+        animationDelay: '800ms',
         animationIterationCount: 6,
         animationDirection: 'alternate-reverse',
         '@media(max-width: 375px)': {

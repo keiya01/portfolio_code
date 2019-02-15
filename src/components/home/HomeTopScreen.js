@@ -78,7 +78,7 @@ export default function HomeTopScreen(props) {
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>ReactNative</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>半年以上</span>様々なアプリの作成に使用。
+                                アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>半年以上</span>、様々なアプリの作成に使用。
                             </div>
                         </li>
                     </ul>
@@ -219,7 +219,6 @@ const styles = StyleSheet.create({
     detailContainer: {
         width: '100%',
         height: '100%',
-        minHeight: '100vh',
         backgroundColor: '#fff',
         padding: '20px 10px'
     },

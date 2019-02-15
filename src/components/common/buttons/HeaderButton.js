@@ -222,33 +222,33 @@ const styles = StyleSheet.create({
         top: 15.5,
     },
     openHumbergerTop: {
-        transitionDuration: '1s',
+        transitionDuration: '500ms',
         transform: 'translateY(8px) rotateZ(90deg) rotate(45deg)',
     },
     closeHumbergerTop: {
-        transitionDuration: '1s',
+        transitionDuration: '500ms',
         transform: 'translateY(0px) rotateZ(0deg) rotate(0deg)',
     },
     humbergerMiddle: {
         top: 24,
     },
     openHumbergerMiddle: {
-        transitionDuration: '1s',
+        transitionDuration: '500ms',
         opacity: 0
     },
     closeHumbergerMiddle: {
-        transitionDuration: '1s',
+        transitionDuration: '500ms',
         transform: 'translateY(0px) rotateY(180deg) rotate(0deg)',
     },
     humbergerBottom: {
         top: 32.5,
     },
     openHumbergerBottom: {
-        transitionDuration: '1s',
+        transitionDuration: '500ms',
         transform: 'translateY(-8px) rotateZ(-90deg) rotate(-45deg)',
     },
     closeHumbergerBottom: {
-        transitionDuration: '1s',
+        transitionDuration: '500ms',
         transform: 'translateY(0px) rotateZ(0deg) rotate(0deg)',
     },
     // ハンバーガーメニューのスタイル end
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
         margin: '25px 0',
         animationName: fadeIn,
         animationDelay: '0s',
-        animationDuration: '500ms',
+        animationDuration: '300ms',
         animationTimingFunction: 'easy',
     },
     clickedShowAnimation: {

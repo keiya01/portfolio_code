@@ -105,7 +105,6 @@ const onHideHeader = (ownProps) => (props) => {
     const containerPosition = container.getBoundingClientRect().top
     const containerHeight  = container.clientHeight
     const changeingPosition = (containerPosition + containerHeight)
-    console.log(containerPosition, containerHeight)
 
     if (changeingPosition <= 0 && isHeaderHide) {
         handleChange('isHeaderHide', false)
@@ -141,7 +140,7 @@ const lifeCycle = {
             getRef,
             onHideHeader
         } = this.props
-        const wrapper = getRef('overflowScroll')
+        const wrapper = getRef('scrollContainer')
         wrapper.addEventListener('scroll', () => {
             onHideHeader(this.props)
         })

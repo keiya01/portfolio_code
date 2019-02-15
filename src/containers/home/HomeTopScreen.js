@@ -62,7 +62,9 @@ const slideShowContainer = (ownProps) => (props, containers) => {
     let scrollPosition = documentElem.scrollTop
     const container = containers[containerId]
     if (!container) return
-    const containerPosition = container.getBoundingClientRect().top + (window.pageYOffset / 1.5)
+    const containerHeight = container.clientHeight
+    const containerPosition = (container.getBoundingClientRect().top + window.pageYOffset) - containerHeight
+    console.log(containerPosition, window.pageYOffset)
     if (containerPosition <= scrollPosition) {
         container.style.opacity = 1
         nextIsContainerAnimes[containerId] = true
