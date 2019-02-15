@@ -40,7 +40,7 @@ export default function HomeTopScreen(props) {
                                 <td className={css(styles.detailItemItemTitle, styles.profileTable)}>好きな言語</td><td>React , Go</td>
                             </tr>
                             <tr className={css(styles.detailItemItem)}>
-                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>興味分野</td><td>UI/UX , マーケティング</td>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>興味分野</td><td>UI/UX, マーケティング</td>
                             </tr>
                         </tbody>
                     </table>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     },
     line:{
         width: '100%',
-        border: '1px solid #e83e53'
+        border: '1px solid #eee'
     },
     profileContainer: {
         display: 'flex',
