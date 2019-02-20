@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import store from '../modules/store'
 import { Provider } from 'react-redux'
+import LoadingScreen from './common/LoadingScreen';
 
-import AppRoute from '../containers/AppRoute'
-
+const AppRoute = lazy(() => import('../containers/AppRoute'))
 
 export default function App() {
   return (
     <Provider store={store}>
-      <AppRoute />
+      <Suspense fallback={<LoadingScreen />}>
+        <AppRoute />
+      </Suspense>
     </Provider>
   )
 }
