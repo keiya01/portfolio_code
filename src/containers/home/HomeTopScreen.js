@@ -146,6 +146,7 @@ const lifeCycle = {
             nextIsContainerAnimes[i] = false
         }
         handleChange('isContainerAnimes', nextIsContainerAnimes)
+        window.addEventListener('scroll', () => {})
     }
 }
 

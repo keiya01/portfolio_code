@@ -61,7 +61,7 @@ export default class WorkItem extends Component {
                 {
                     image
                         ?
-                        <img src={image} className={css(styles.image)} />
+                        <img src={image} alt="thumnail" loading="lazy" className={css(styles.image)} />
                         :
                         <div className={css(styles.noImage)} >
                             <h3 className={css(styles.noImageText)}>No Image</h3>

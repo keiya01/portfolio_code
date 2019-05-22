@@ -144,6 +144,13 @@ const lifeCycle = {
         wrapper.addEventListener('scroll', () => {
             onHideHeader(this.props)
         })
+    },
+    componentWillUnmount() {
+        const {
+            getRef,
+        } = this.props
+        const wrapper = getRef('scrollContainer')
+        wrapper.addEventListener('scroll', () => {})
     }
 }
 

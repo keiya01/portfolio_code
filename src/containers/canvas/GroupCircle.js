@@ -225,6 +225,9 @@ const lifeCycle = {
                 }, 100)
             })
         }
+    },
+    componentWillUnmount() {
+        window.addEventListener('resize', () => {})
     }
 }
 

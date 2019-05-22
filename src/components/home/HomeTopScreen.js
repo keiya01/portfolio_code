@@ -105,6 +105,12 @@ export default function HomeTopScreen(props) {
                                 株式会社AppRunsにてエンジニアとしてアルバイトを開始
                             </div>
                         </li>
+                        <li className={css(styles.detailItemItem)}>
+                            <span className={css(styles.detailItemItemTitle)}>2019/03/18 ~ 03/29</span>
+                            <div className={css(styles.detailItemItemBody)}>
+                                株式会社wantedlyにて2週間のインターンを経験
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

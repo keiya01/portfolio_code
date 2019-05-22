@@ -172,10 +172,10 @@ export default class Circle extends Canvas {
         let animSize = size
         const ua = navigator.userAgent.toLowerCase()
         // PC用のアニメーションスピード
-        let animTime = 55
+        let animTime = 80
         // スマホ用のアニメーションスピード
         if(ua.match(/android|iphone/) !== null) {
-            animTime = 35
+            animTime = 60
         }
         const circle = new Circle(context, name, positionX, positionY, animSize + animTime, color)
         circle.drawCircle(false)
