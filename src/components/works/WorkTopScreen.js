@@ -1,12 +1,12 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import WorkItem from './lists/items/WorkItem'
 import NextScreenButton from '../common/buttons/NextScreenButton'
 import List from '../common/List'
 import LoadingItem from '../common/LoadingItem'
 import { setWindowHeight } from '../../util/responsive';
 import HeaderButton from '../../containers/common/buttons/HeaderButton';
+import FingerDown from '../common/icon/FingerDown';
 
 export default function WorkTopScreen(props) {
     const {
@@ -30,10 +30,7 @@ export default function WorkTopScreen(props) {
                 className={css(styles.titleContainer)}
                 style={{ height }}>
                 <h1 className={css(styles.title)}>Works</h1>
-                <FontAwesomeIcon
-                    icon='hand-point-down'
-                    className={css(styles.handDown)}
-                />
+                <FingerDown position={{bottom: 100, left: '48%'}} delay={800}/>
             </div>
             <div
                 className={css(styles.listContainer)}
@@ -98,20 +95,6 @@ const movingTextSpace = [
     }
 ]
 
-const movingHandDown = [
-    {
-        'from': {
-            opacity: 1,
-            transform: 'translateY(0)'
-        },
-        'to': {
-            opacity: 1,
-            transform: 'translateY(-70px)'
-        }
-
-    }
-]
-
 const styles = StyleSheet.create({
     container: {
         width: '100vw',
@@ -142,23 +125,6 @@ const styles = StyleSheet.create({
         '@media(max-width: 375px)': {
             paddingLeft: 5,
             fontSize: 60,
-        }
-    },
-    handDown: {
-        opacity: 0,
-        position: 'absolute',
-        bottom: 100,
-        left: '48%',
-        fontSize: 40,
-        color: '#FF9933',
-        animationName: movingHandDown,
-        animationTimingFunction: 'linear',
-        animationDuration: '800ms',
-        animationDelay: '800ms',
-        animationIterationCount: 6,
-        animationDirection: 'alternate-reverse',
-        '@media(max-width: 375px)': {
-            fontSize: 27,
         }
     },
     listContainer: {

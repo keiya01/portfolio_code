@@ -3,6 +3,7 @@ import { css, StyleSheet } from 'aphrodite'
 
 import GroupCirle from '../../containers/canvas/GroupCircle'
 import HeaderButton from '../../containers/common/buttons/HeaderButton'
+import FingerDown from '../common/icon/FingerDown';
 
 export default function HomeTopScreen(props) {
     const {
@@ -22,6 +23,7 @@ export default function HomeTopScreen(props) {
                     <img src={require('../../assets/img/thumbnail.jpg')} alt="サムネイル画像" className={css(styles.image)} />
                     <p className={css(styles.name)}>Keiya Sasaki</p>
                 </div>
+                <FingerDown position={{bottom: 100, left: '48%'}} delay={2000}/>
             </div>
             <div className={css(styles.detailContainer)}>
             <div className={css(styles.line)}/>
@@ -173,6 +175,7 @@ const slideRightAnim = [
 
 const styles = StyleSheet.create({
     container: {
+        position: "relative",
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
