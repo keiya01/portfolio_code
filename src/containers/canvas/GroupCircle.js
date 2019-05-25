@@ -23,13 +23,13 @@ const canRenderProps = [
 ]
 
 // propsの値を変更する
-const handleChange = (ownProps) => (name, value) => {
+const handleChange = () => (name, value) => {
     return {
         [name]: value
     }
 }
 
-const onResize = (ownProps) => (h, w) => {
+const onResize = () => (h, w) => {
     return {
         windowHeight: h,
         windowWidth: w,
@@ -111,7 +111,7 @@ const setCircle = (ownProps) => (canvas) => {
 }
 
 
-const setClickEvent = (ownProps) => {
+const setClickEvent = () => {
     // クリックされているかどうかを確認する変数
     let isClicked = false
     return {
@@ -140,7 +140,7 @@ const setClickEvent = (ownProps) => {
                     text
                 } = optionStore[i]
                 const circle = new Circle(ctx, name, x, y, size, color, text)
-                const isAnimation = circle.onClick(e, props)
+                const isAnimation = circle.onClick(e)
                 if (isAnimation) {
                     // 配列の中で最後の要素かつ円の範囲をクリックされているものを代入
                     activeCircle = circle
@@ -163,8 +163,8 @@ const setClickEvent = (ownProps) => {
 const setRef = () => {
     let refs = {}
     return {
-        setRef: ownProps => (event, name) => (refs[name] = event),
-        getRefs: ownProps => () => refs
+        setRef: () => (event, name) => (refs[name] = event),
+        getRefs: () => () => refs
     }
 }
 // propsの変更を行わないhandler
@@ -180,7 +180,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = () => ({
 })
 
 // componentDidMountなどのライフサイクルを記述する

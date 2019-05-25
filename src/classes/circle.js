@@ -143,7 +143,7 @@ export default class Circle extends Canvas {
         window.requestAnimationFrame(activeCircle.clickAnimation(nextAnimation, constantSize, props))
     }
 
-    transitionAnimation = (props) => (timestamp) => {
+    transitionAnimation = (props) => () => {
         const {
             windowHeight,
             windowWidth,
@@ -182,7 +182,7 @@ export default class Circle extends Canvas {
         window.requestAnimationFrame(circle.transitionAnimation(props))
     }
 
-    onClick = (e, props) => {
+    onClick = (e) => {
         const {
             clientX,
             clientY
