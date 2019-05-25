@@ -19,7 +19,7 @@ export default function HomeTopScreen(props) {
             <div className={css(styles.container)}>
                 <HeaderButton currentPage='home' isHide={isHeaderHide} />
                 <div className={css(styles.profileContainer)}>
-                    <img src={require('../../assets/img/thumbnail.jpg')} className={css(styles.image)} />
+                    <img src={require('../../assets/img/thumbnail.jpg')} alt="サムネイル画像" className={css(styles.image)} />
                     <p className={css(styles.name)}>Keiya Sasaki</p>
                 </div>
             </div>
@@ -263,7 +263,6 @@ const styles = StyleSheet.create({
     },
     detailItemList: {
         listStyle: 'none',
-        padding: 0,
         padding: '0 10px',
         wordWrap: 'break-word',
     },

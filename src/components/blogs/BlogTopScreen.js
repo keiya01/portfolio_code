@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
-import PreparationScreen from '../common/screen/PreparationScreen';
 import BlogItem from './list/item/BlogItem';
 import NextScreenButton from '../common/buttons/NextScreenButton';
 import { setWindowHeight } from '../../util/responsive';

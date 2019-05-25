@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
-import PreparationScreen from '../common/screen/PreparationScreen'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import WorkItem from './lists/items/WorkItem'
 import NextScreenButton from '../common/buttons/NextScreenButton'

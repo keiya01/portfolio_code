@@ -22,7 +22,7 @@ const canRenderProps = [
 ]
 
 // propsの値を変更する
-const handleChange = (ownProps) => {
+const handleChange = () => {
     return (name, value) => {
         return {
             [name]: value
@@ -39,14 +39,14 @@ const refHandler = () => {
     let refs = {}
     let containers = {}
     return {
-        setRef: (ownProps) => name => e => (refs[name] = e),
-        getRef: (ownProps) => name => refs[name],
-        setContainer: (ownProps) => id => e => (containers[id] = e),
-        getContainers: (ownProps) => () => containers,
+        setRef: () => name => e => (refs[name] = e),
+        getRef: () => name => refs[name],
+        setContainer: () => id => e => (containers[id] = e),
+        getContainers: () => () => containers,
     }
 }
 
-const slideShowContainer = (ownProps) => (props, containers) => {
+const slideShowContainer = (ownProps) => (containers) => {
     const {
         containerId,
         isContainerAnimes,
@@ -73,7 +73,7 @@ const slideShowContainer = (ownProps) => (props, containers) => {
     }
 }
 
-const onHideHeader = (ownProps) => (props) => {
+const onHideHeader = () => (props) => {
     const {
         getRef,
         isHeaderHide,
@@ -112,7 +112,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = () => ({
 
 })
 
@@ -131,14 +131,13 @@ const lifeCycle = {
         }
 
         window.addEventListener('scroll', () => {
-            slideShowContainer(this.props, containers)
+            slideShowContainer(containers)
             onHideHeader(this.props)
         })
     },
     componentWillUnmount() {
         const {
             isContainerAnimes,
-            getContainers,
             handleChange
         } = this.props
         const nextIsContainerAnimes = isContainerAnimes

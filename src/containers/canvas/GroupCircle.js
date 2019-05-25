@@ -7,9 +7,6 @@ import Circle from '../../classes/circle'
 import { optionStore } from '../../classes/circle'
 import DisplayComponent from '../../components/canvas/GroupCircle'
 
-import * as WindowAction from '../../modules/window'
-
-
 const display = "GroupCircle"
 
 const initialProps = {
@@ -121,8 +118,6 @@ const setClickEvent = (ownProps) => {
         onCircleClick: (ownProps) => (props) => (e) => {
             const {
                 canvas,
-                handleChange,
-                isCircleClicked
             } = ownProps
 
             // circleがクリックされているなら処理をしない

@@ -76,7 +76,6 @@ export default class Circle extends Canvas {
             text,
             positionX,
             positionY,
-            size
         } = this
 
         context.beginPath()
@@ -158,7 +157,7 @@ export default class Circle extends Canvas {
             color,
         } = this
         if (size > windowHeight * 2 && size > windowWidth * 2) {
-            switch (name) {
+            switch (name) { // eslint-disable-line default-case
                 case 'Works':
                     props.history.push('/works')
                     return
@@ -189,7 +188,6 @@ export default class Circle extends Canvas {
             clientY
         } = e
         const {
-            name,
             positionX,
             positionY,
             size

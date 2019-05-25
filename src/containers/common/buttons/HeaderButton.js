@@ -19,7 +19,7 @@ const canRenderProps = [
 ]
 
 // propsの値を変更する
-const handleChange = (ownProps) => {
+const handleChange = () => {
     return (name, value) => {
         return {
             [name]: value
@@ -27,7 +27,7 @@ const handleChange = (ownProps) => {
     }
 }
 
-const resetAnimation = (ownProps) => () => {
+const resetAnimation = () => () => {
     return {
         isClicked: false,
         isStart: false,
@@ -44,14 +44,14 @@ const stateHandler = {
 const refHandler = () => {
     let refs = {}
     return {
-        setRef: (ownProps) => name => e => (refs[name] = e),
-        getRef: (ownProps) => name => refs[name],
+        setRef: () => name => e => (refs[name] = e),
+        getRef: () => name => refs[name],
     }
 }
 
 let isUnmouted = false
 let clickFlg = false
-const onHeaderClick = (ownProps) => (props) => {
+const onHeaderClick = () => (props) => {
     if(isUnmouted) {
         return
     }
@@ -107,8 +107,6 @@ const lifeCycle = {
         const {
             isHide,
             resetAnimation,
-            isStart,
-            onHeaderClick
         } = this.props
         if(isHide) {
             resetAnimation()
