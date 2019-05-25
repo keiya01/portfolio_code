@@ -85,6 +85,12 @@ export default function HomeTopScreen(props) {
                                 アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>半年以上</span>、様々なアプリの作成に使用。
                             </div>
                         </li>
+                        <li className={css(styles.detailItemItem)}>
+                            <span className={css(styles.detailItemItemTitle)}>Typescript</span>
+                            <div className={css(styles.detailItemItemBody)}>
+                                個人開発にてAPIやアプリの作成に<span style={{ fontWeight: 'bold' }}>半年ほど</span>使用。
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div className={css(styles.line)}/>
@@ -289,13 +295,11 @@ const styles = StyleSheet.create({
     slideLeft: {
         animationName: slideLeftAnim,
         animationTimingFunction: 'easy-in',
-        animationDuration: '1s',
-        animationDelay: '0s',
+        animationDuration: '1000ms',
     },
     slideRight: {
         animationName: slideRightAnim,
         animationTimingFunction: 'easy-in',
-        animationDuration: '1s',
-        animationDelay: '0s',
+        animationDuration: '1000ms',
     }
 })
