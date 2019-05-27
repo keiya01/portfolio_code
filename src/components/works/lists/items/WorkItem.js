@@ -95,7 +95,7 @@ export default class WorkItem extends Component {
                     <ul className={css(styles.contentList)}>
                         {this.nl2br(improvement)}
                     </ul>
-                    <div className={css(styles.codeBtn)}>
+                    <div className={css(styles.codeBtn)} onClick={e => e.stopPropagation()}>
                         <a className={css(styles.codeLink)} href={link}>
                             <FontAwesomeIcon
                                 icon={['fab', 'github']}
