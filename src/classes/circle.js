@@ -100,7 +100,7 @@ export default class Circle extends Canvas {
         const windowHeight = window.innerHeight
         const windowWidth = window.innerWidth
 
-        const animTime = 3
+        const animTime = 4
         const animSize = size
         const animY = positionY
         if (animSize <= constantSize - 25) {
@@ -127,11 +127,11 @@ export default class Circle extends Canvas {
             const isActiveCircle = optionName === name
 
             const nextSize = isActiveCircle ? animSize - animTime : optionSize
-            const nextY = isActiveCircle ? animY + 2 : optionY
+            const nextY = isActiveCircle ? animY + 3 : optionY
             const circle = new Circle(context, optionName, optionX, nextY, nextSize, optionColor, optionText)
             if (isActiveCircle) {
                 activeCircle = circle
-                circle.setShadow(0.1)
+                circle.setShadow(0.5)
             }else{
                 circle.setShadow()
             }
@@ -171,10 +171,10 @@ export default class Circle extends Canvas {
         let animSize = size
         const ua = navigator.userAgent.toLowerCase()
         // PC用のアニメーションスピード
-        let animTime = 80
+        let animTime = 100
         // スマホ用のアニメーションスピード
         if(ua.match(/android|iphone/) !== null) {
-            animTime = 60
+            animTime = 80
         }
         const circle = new Circle(context, name, positionX, positionY, animSize + animTime, color)
         circle.drawCircle(false)
