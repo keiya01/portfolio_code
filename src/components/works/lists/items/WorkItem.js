@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import WorkText from './WorkText'
 
 const IconListItem = (props) => {
     const {
@@ -96,13 +97,7 @@ export default class WorkItem extends Component {
                         {this.nl2br(improvement)}
                     </ul>
                     <div className={css(styles.codeBtn)} onClick={e => e.stopPropagation()}>
-                        <a className={css(styles.codeLink)} href={link}>
-                            <FontAwesomeIcon
-                                icon={['fab', 'github']}
-                                style={{ fontSize: 20, marginRight: 5 }}
-                            />
-                            Githubを見る
-                        </a>
+                        <WorkText link={link}/>
                     </div>
                 </div>
                 <div className={css(styles.filter)} ref={(e) => this.filter = e}>
@@ -189,11 +184,6 @@ const styles = StyleSheet.create({
     codeBtn: {
         textAlign: 'center',
         marginTop: 50,
-    },
-    codeLink: {
-        fontSize: 16,
-        color: '#757575',
-        textDecoration: 'underline solid #757575',
     },
     filter: {
         position: 'absolute',
