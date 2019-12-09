@@ -39,10 +39,10 @@ export default function HomeTopScreen(props) {
                                 <td className={css(styles.detailItemItemTitle, styles.profileTable)} >生年月日</td><td>1999/02/10</td>
                             </tr>
                             <tr className={css(styles.detailItemItem)}>
-                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>好きな言語</td><td>React , Go</td>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>好きな言語</td><td>TypeScript, Go</td>
                             </tr>
                             <tr className={css(styles.detailItemItem)}>
-                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>興味分野</td><td>UI/UX, マーケティング</td>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>興味分野</td><td>UI/UX, WEBフロントエンド</td>
                             </tr>
                         </tbody>
                     </table>
@@ -64,31 +64,31 @@ export default function HomeTopScreen(props) {
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>PHP(FuelPHP)</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                アルバイト先の企業にてアプリ紹介サイト作成に<span style={{ fontWeight: 'bold' }}>半年</span>ほど使用。
+                                アルバイト先の企業にてアプリ紹介サイト作成に<span style={{ fontWeight: 'bold' }}>1年ほど</span>使用。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>Go</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にて<span style={{ fontWeight: 'bold' }}>半年</span>ほどAPIサーバーなどの作成に使用。
+                                個人開発にて<span style={{ fontWeight: 'bold' }}>1年ほど</span>APIサーバーなどの作成に使用。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>React</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にて<span style={{ fontWeight: 'bold' }}>半年</span>ほどこのPortfolioやその他のサービスの作成に使用。
+                                個人開発にて<span style={{ fontWeight: 'bold' }}>1年ほど</span>このPortfolioやその他のサービスの作成に使用。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>ReactNative</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>半年以上</span>、様々なアプリの作成に使用。
+                                アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>1年以上</span>、様々なアプリの作成に使用。
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>Typescript</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にてAPIやアプリの作成に<span style={{ fontWeight: 'bold' }}>半年ほど</span>使用。
+                                個人開発にてAPIやアプリの作成に<span style={{ fontWeight: 'bold' }}>1年ほど</span>使用。
                             </div>
                         </li>
                     </ul>
@@ -108,15 +108,21 @@ export default function HomeTopScreen(props) {
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>2018/03/01</span>
+                            <span className={css(styles.detailItemItemTitle)}>2018/03/01 ~ 2019/09/30</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                株式会社AppRunsにてエンジニアとしてアルバイトを開始
+                                株式会社AppRunsにてエンジニアとしてアルバイトを経験
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
                             <span className={css(styles.detailItemItemTitle)}>2019/03/18 ~ 03/29</span>
                             <div className={css(styles.detailItemItemBody)}>
-                                株式会社wantedlyにて2週間のインターンを経験
+                                ウォンテッドリー株式会社にて2週間のインターンを経験
+                            </div>
+                        </li>
+                        <li className={css(styles.detailItemItem)}>
+                            <span className={css(styles.detailItemItemTitle)}>2019/08/19 ~ 08/30</span>
+                            <div className={css(styles.detailItemItemBody)}>
+                                ヤフー株式会社にて2週間のインターンを経験
                             </div>
                         </li>
                     </ul>
