@@ -12,7 +12,8 @@ import {
     faCircle,
     faSpinner,
     faHandPointDown,
-    faLaptopCode
+    faLaptopCode,
+    faExternalLinkAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -23,7 +24,8 @@ library.add(
     faCircle,
     faSpinner,
     faHandPointDown,
-    faLaptopCode
+    faLaptopCode,
+    faExternalLinkAlt
 )
 
 ReactDOM.render(<App />, document.getElementById('root'))
