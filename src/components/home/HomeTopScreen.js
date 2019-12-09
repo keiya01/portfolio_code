@@ -62,7 +62,7 @@ export default function HomeTopScreen(props) {
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>PHP(FuelPHP)</span>
+                            <span className={css(styles.detailItemItemTitle)}>PHP(Laravel, FuelPHP)</span>
                             <div className={css(styles.detailItemItemBody)}>
                                 アルバイト先の企業にてアプリ紹介サイト作成に<span style={{ fontWeight: 'bold' }}>1年ほど</span>使用。
                             </div>
