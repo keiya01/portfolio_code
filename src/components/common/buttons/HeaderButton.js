@@ -156,7 +156,7 @@ const clickedShowAnime = [
         'from': {
             height: 50,
             width: 50,
-            borderRadius: "50%"
+            borderRadius: "0%"
         },
         'to': {
             height: 350,
@@ -168,12 +168,15 @@ const clickedShowAnime = [
 
 const clickedHideAnime = [
     {
-        'from': {
+        '0%': {
             height: 350,
             width: 230,
             borderRadius: '0%'
         },
-        'to': {
+        '43%': {
+            borderRadius: '0%'
+        },
+        '100%': {
             height: 50,
             width: 50,
             borderRadius: "50%"
@@ -225,33 +228,33 @@ const styles = StyleSheet.create({
         top: 15.5,
     },
     openHumbergerTop: {
-        transitionDuration: '500ms',
+        transitionDuration: '300ms',
         transform: 'translateY(8px) rotateZ(90deg) rotate(45deg)',
     },
     closeHumbergerTop: {
-        transitionDuration: '500ms',
+        transitionDuration: '300ms',
         transform: 'translateY(0px) rotateZ(0deg) rotate(0deg)',
     },
     humbergerMiddle: {
         top: 24,
     },
     openHumbergerMiddle: {
-        transitionDuration: '500ms',
+        transitionDuration: '300ms',
         opacity: 0
     },
     closeHumbergerMiddle: {
-        transitionDuration: '500ms',
+        transitionDuration: '300ms',
         transform: 'translateY(0px) rotateY(180deg) rotate(0deg)',
     },
     humbergerBottom: {
         top: 32.5,
     },
     openHumbergerBottom: {
-        transitionDuration: '500ms',
+        transitionDuration: '300ms',
         transform: 'translateY(-8px) rotateZ(-90deg) rotate(-45deg)',
     },
     closeHumbergerBottom: {
-        transitionDuration: '500ms',
+        transitionDuration: '300ms',
         transform: 'translateY(0px) rotateZ(0deg) rotate(0deg)',
     },
     // ハンバーガーメニューのスタイル end
@@ -289,14 +292,14 @@ const styles = StyleSheet.create({
     clickedShowAnimation: {
         animationName: clickedShowAnime,
         animationDelay: '0s',
-        animationDuration: '500ms',
+        animationDuration: '300ms',
         animationTimingFunction: 'easy',
         animationFillMode: 'forwards'
     },
     clickedHideAnimation: {
         animationName: clickedHideAnime,
         animationDelay: '0s',
-        animationDuration: '500ms',
+        animationDuration: '300ms',
         animationTimingFunction: 'easy',
         animationFillMode: 'forwards'
     }

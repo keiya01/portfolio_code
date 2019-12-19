@@ -73,7 +73,7 @@ const onHeaderClick = () => (props) => {
         Promise.resolve(setTimeout(() => {
             handleChange('isClicked', true)
             clickFlg = false
-        }, 500))
+        }, 150))
     }else{
         handleChange('isFinish', true)
         handleChange('isClicked', false)
