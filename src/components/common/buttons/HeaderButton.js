@@ -153,50 +153,30 @@ const showHeader = [
 
 const clickedShowAnime = [
     {
-        '0%': {
+        'from': {
             height: 50,
             width: 50,
-            borderRadius: '50%'
+            borderRadius: "50%"
         },
-        '30%': {
-            height: 50,
-            width: 50,
-            borderRadius: '0%'
-        },
-        '60%': {
-            height: 50,
-            width: 230,
-            borderRadius: '0%'
-        },
-        '100%': {
+        'to': {
             height: 350,
             width: 230,
-            borderRadius: '0%'
+            borderRadius: "0%"
         }
     }
 ]
 
 const clickedHideAnime = [
     {
-        '0%': {
+        'from': {
             height: 350,
             width: 230,
             borderRadius: '0%'
         },
-        '30%': {
-            height: 350,
-            width: 50,
-            borderRadius: '0%'
-        },
-        '60%': {
+        'to': {
             height: 50,
             width: 50,
-            borderRadius: '0%'
-        },
-        '100%': {
-            height: 50,
-            width: 50,
-            borderRadius: '50%'
+            borderRadius: "50%"
         }
     }
 ]
