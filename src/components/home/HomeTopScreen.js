@@ -23,7 +23,7 @@ export default function HomeTopScreen(props) {
                     <img src={require('../../assets/img/thumbnail.jpg')} alt="サムネイル画像" className={css(styles.image)} />
                     <p className={css(styles.name)}>Keiya Sasaki</p>
                 </div>
-                <FingerDown position={{bottom: 100, left: '48%'}} delay={2000}/>
+                <FingerDown position={{bottom: 100, left: '48%'}} delay={900}/>
             </div>
             <div className={css(styles.detailContainer)}>
             <div className={css(styles.line)}/>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
         border: 'solid 1px #F9CDAD',
         animationName: showImage,
         animationTimingFunction: 'easy',
-        animationDuration: '2s',
+        animationDuration: '1s',
         animationDelay: '0s',
         '@media(max-width: 480px)': {
             width: 55,
@@ -226,10 +226,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#757575',
         fontWeight: 600,
+        opacity: 0,
         animationName: showUserName,
         animationTimingFunction: 'easy',
-        animationDuration: '4s',
-        animationDelay: '0s'
+        animationFillMode: "forwards",
+        animationDuration: '1s',
+        animationDelay: '100ms'
     },
     descriptionContainer: {
         width: '90%',
