@@ -159,13 +159,12 @@ const showUserName = [
 
 const slideLeftAnim = [
     {
-        '0%': {
-            transform: 'translateX(-110%)'
+        'from': {
+            opacity: 0,
+            transform: 'translateX(-20%)'
         },
-        '45%': {
-            transform: 'translateX(7%)'
-        },
-        '100%': {
+        'to': {
+            opacity: 1,
             transform: 'translateX(0)'
         }
     }
@@ -173,13 +172,12 @@ const slideLeftAnim = [
 
 const slideRightAnim = [
     {
-        '0%': {
-            transform: 'translateX(110%)'
+        'from': {
+            opacity: 0,
+            transform: 'translateX(20%)'
         },
-        '45%': {
-            transform: 'translateX(-7%)'
-        },
-        '100%': {
+        'to': {
+            opacity: 1,
             transform: 'translateX(0)'
         }
     }
@@ -301,11 +299,11 @@ const styles = StyleSheet.create({
     slideLeft: {
         animationName: slideLeftAnim,
         animationTimingFunction: 'easy-in',
-        animationDuration: '1000ms',
+        animationDuration: '500ms',
     },
     slideRight: {
         animationName: slideRightAnim,
         animationTimingFunction: 'easy-in',
-        animationDuration: '1000ms',
+        animationDuration: '500ms',
     }
 })
