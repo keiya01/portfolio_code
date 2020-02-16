@@ -10,13 +10,13 @@ export default function AppRoute() {
     return (
         <Router basename='/portfolio/#'>
             <ScrollToTop>
-                <Switch>
-                    <Suspense fallback={<LoadingScreen/>}>
+                <Suspense fallback={<LoadingScreen/>}>
+                    <Switch>
                         <Route path={`/works`} component={WorkTopScreen} />
                         <Route path={`/blogs`} component={BlogTopScreen} />
                         <Route exact path={`/`} component={HomeTopScreen} />
-                    </Suspense>
-                </Switch>
+                    </Switch>
+                </Suspense>
             </ScrollToTop>
         </Router>
     )
