@@ -36,13 +36,28 @@ export default function HomeTopScreen(props) {
                     <table className={css(styles.profileList)} style={{ margin: '0 auto', textAlign: 'center' }}>
                         <tbody>
                             <tr className={css(styles.detailItemItem)}>
-                                <td className={css(styles.detailItemItemTitle, styles.profileTable)} >生年月日</td><td>1999/02/10</td>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)} >
+                                    <p>生年月日</p>
+                                </td>
+                                <td>
+                                    <p>1999/02/10</p>
+                                </td>
                             </tr>
                             <tr className={css(styles.detailItemItem)}>
-                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>好きな言語</td><td>TypeScript, Go</td>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>
+                                    <p>好きな言語</p>
+                                </td>
+                                <td>
+                                    <p>TypeScript, Go</p>
+                                </td>
                             </tr>
                             <tr className={css(styles.detailItemItem)}>
-                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>興味分野</td><td>UI/UX, WEBフロントエンド</td>
+                                <td className={css(styles.detailItemItemTitle, styles.profileTable)}>
+                                    <p>興味分野</p>
+                                </td>
+                                <td>
+                                    <p>UI/UX, WEBフロントエンド</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -56,39 +71,39 @@ export default function HomeTopScreen(props) {
                     <h3 className={css(styles.detailItemTitle)}>Language</h3>
                     <ul className={css(styles.detailItemList)}>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>Ruby(Ruby on Rails)</span>
+                            <p className={css(styles.detailItemItemTitle)}>Ruby(Ruby on Rails)</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                独学で<span style={{ fontWeight: 'bold' }}>1年間</span>学習。その間に3つ程アプリを作成。
+                                <p>独学で<span style={{ fontWeight: 'bold' }}>1年間</span>学習。その間に3つ程アプリを作成。</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>PHP(Laravel, FuelPHP)</span>
+                            <p className={css(styles.detailItemItemTitle)}>PHP(Laravel, FuelPHP)</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                アルバイト先の企業にてアプリ紹介サイト作成に<span style={{ fontWeight: 'bold' }}>1年ほど</span>使用。
+                                <p>アルバイト先の企業にてアプリ紹介サイト作成に<span style={{ fontWeight: 'bold' }}>1年ほど</span>使用。</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>Go</span>
+                            <p className={css(styles.detailItemItemTitle)}>Go</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にて<span style={{ fontWeight: 'bold' }}>1年ほど</span>APIサーバーなどの作成に使用。
+                                <p>個人開発にて<span style={{ fontWeight: 'bold' }}>1年ほど</span>APIサーバーなどの作成に使用。</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>React</span>
+                            <p className={css(styles.detailItemItemTitle)}>React</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にて<span style={{ fontWeight: 'bold' }}>1年ほど</span>このPortfolioやその他のサービスの作成に使用。
+                                <p>個人開発にて<span style={{ fontWeight: 'bold' }}>1年ほど</span>このPortfolioやその他のサービスの作成に使用。</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>ReactNative</span>
+                            <p className={css(styles.detailItemItemTitle)}>ReactNative</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>1年以上</span>、様々なアプリの作成に使用。
+                                <p>アルバイト先の企業にて<span style={{ fontWeight: 'bold' }}>1年以上</span>、様々なアプリの作成に使用。</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>Typescript</span>
+                            <p className={css(styles.detailItemItemTitle)}>Typescript</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                個人開発にてAPIやアプリの作成に<span style={{ fontWeight: 'bold' }}>1年ほど</span>使用。
+                                <p>個人開発にてAPIやアプリの作成に<span style={{ fontWeight: 'bold' }}>1年ほど</span>使用。</p>
                             </div>
                         </li>
                     </ul>
@@ -102,27 +117,27 @@ export default function HomeTopScreen(props) {
                     <h3 className={css(styles.detailItemTitle)}>Career</h3>
                     <ul className={css(styles.detailItemList)}>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>2017/06/01</span>
+                            <p className={css(styles.detailItemItemTitle)}>2017/06/01</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                プログラミング学習開始
+                                <p>プログラミング学習開始</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>2018/03/01 ~ 2019/09/30</span>
+                            <p className={css(styles.detailItemItemTitle)}>2018/03/01 ~ 2019/09/30</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                株式会社AppRunsにてエンジニアとしてアルバイトを経験
+                                <p>株式会社AppRunsにてエンジニアとしてアルバイトを経験</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>2019/03/18 ~ 03/29</span>
+                            <p className={css(styles.detailItemItemTitle)}>2019/03/18 ~ 03/29</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                ウォンテッドリー株式会社にて2週間のインターンを経験
+                                <p>ウォンテッドリー株式会社にて2週間のインターンを経験</p>
                             </div>
                         </li>
                         <li className={css(styles.detailItemItem)}>
-                            <span className={css(styles.detailItemItemTitle)}>2019/08/19 ~ 08/30</span>
+                            <p className={css(styles.detailItemItemTitle)}>2019/08/19 ~ 08/30</p>
                             <div className={css(styles.detailItemItemBody)}>
-                                ヤフー株式会社にて2週間のインターンを経験
+                                <p>ヤフー株式会社にて2週間のインターンを経験</p>
                             </div>
                         </li>
                     </ul>
