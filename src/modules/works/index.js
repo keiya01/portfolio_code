@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as API from '../../constants/api'
 
 const prefix = 'portfolio/works/'
@@ -61,16 +60,16 @@ const getWorksEnd = () => ({
     type: GET_WORKS_END
 })
 
-export const getWorks = () => (dispatch, getState) => {
+export const getWorks = () => async (dispatch, getState) => {
     const uri = API.WORKS
     dispatch(getWorksStart())
-    axios.get(uri)
-        .then((json) => {
-            dispatch(getWorksSuccess(json.data))
-        })
-        .catch((err) => {
-            dispatch(getWorksFaild(err))
-        }).finally(() => {
-            dispatch(getWorksEnd())
-        })
+    try {
+        const res = await fetch(uri)
+        const data = await res.json()
+        dispatch(getWorksSuccess(data))
+    } catch(error) {
+        dispatch(getWorksFaild(error))
+    } finally {
+        dispatch(getWorksEnd())
+    }
 }
