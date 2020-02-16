@@ -1,5 +1,3 @@
-import { dispatch } from "rxjs/internal/observable/range";
-
 const prefix = 'portfolio/window/'
 
 const RESIZE_WINDOW = prefix + 'RESIZE_WINDOW'
