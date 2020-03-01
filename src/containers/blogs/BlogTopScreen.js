@@ -1,11 +1,10 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
-import { connect } from 'react-redux'
-
 import { setWindowHeight } from '../../util/responsive'
-
 import DisplayComponent from '../../components/blogs/BlogTopScreen'
+import _ from 'lodash-es';
 
 const display = 'BlogTopScreen'
+let _isMounted = false;
 
 const initialProps = {
     isHeaderHide: true
@@ -16,7 +15,7 @@ const canRenderProps = [
 ]
 
 // propsの値を変更する
-const handleChange = (ownProps) => {
+const handleChange = () => {
     return (name, value) => {
         return {
             [name]: value
@@ -33,20 +32,20 @@ const stateHandler = {
 const containerRefHandle = () => {
     let refs = {}
     return {
-        setContainer: (ownProps) => name => e => (refs[name] = e),
-        getContainer: (ownProps) => () => refs
+        setContainer: () => name => e => (refs[name] = e),
+        getContainer: () => () => refs
     }
 }
 
 const refHandler = () => {
     let refs = {}
     return {
-        setRef: (ownProps) => name => e => (refs[name] = e),
-        getRefs: (ownProps) => (name) => refs[name]
+        setRef: () => name => e => (refs[name] = e),
+        getRefs: () => (name) => refs[name]
     }
 }
 
-const scrollContainer = (ownProps) => (props) => {
+const scrollContainer = (props) => {
     const {
         getContainer,
     } = props
@@ -84,7 +83,7 @@ const scrollContainer = (ownProps) => (props) => {
 
 }
 
-const showSlideAnimation = (containers, moveDistance, nextContainerId) => (timestamp) => {
+const showSlideAnimation = (containers, moveDistance, nextContainerId) => () => {
     const windowHeight = setWindowHeight()
     const time = 70
     moveDistance -= time
@@ -106,7 +105,7 @@ const showSlideAnimation = (containers, moveDistance, nextContainerId) => (times
     }
 }
 
-const setShowSlideAnimation = (ownProps) => (containers) => {
+const setShowSlideAnimation = (containers) => {
     const windowHeight = setWindowHeight()
     const totalContainers = Object.keys(containers).length
 
@@ -119,10 +118,9 @@ const setShowSlideAnimation = (ownProps) => (containers) => {
     window.requestAnimationFrame(showSlideAnimation(containers, windowHeight, totalContainers))
 }
 
-const onHideHeader = (ownProps) => (props) => {
+const onHideHeader = _.throttle((props) => {
     const {
         getContainer,
-        isHeaderHide,
         handleChange
     } = props
 
@@ -135,41 +133,33 @@ const onHideHeader = (ownProps) => (props) => {
     const containerHeight  = (container.clientHeight * 0.5)
     const changeingPosition = (containerPosition + containerHeight)
 
-    if (changeingPosition <= 0 && isHeaderHide) {
+    if (changeingPosition <= 0) {
         handleChange('isHeaderHide', false)
-    } else if (changeingPosition >= 0 && !isHeaderHide) {
+    } else if (changeingPosition >= 0) {
         handleChange('isHeaderHide', true)
     }
-}
+}, 500);
 
 // propsの変更を行わないhandler
 const handleProps = {
     ...refHandler(),
-    ...containerRefHandle(),
-    scrollContainer,
-    setShowSlideAnimation,
-    onHideHeader
+    ...containerRefHandle()
 }
 
-const mapStateToProps = (state) => {
-    return {
-        ...state
+const handleOnHideHeader = (props, height, isRemove) => () => {
+    if(!isRemove && _isMounted) {
+        scrollContainer(props, height);
+        onHideHeader(props);
     }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-
-})
+};
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentDidMount() {
+        _isMounted = true;
         const {
-            scrollContainer,
             getContainer,
-            getRefs,
-            setShowSlideAnimation,
-            onHideHeader
+            getRefs
         } = this.props
 
         const windowHeight = setWindowHeight()
@@ -184,15 +174,13 @@ const lifeCycle = {
             mainContainer.style.height = `${windowHeight * totalContaners}px`
         }
         
-        window.addEventListener('scroll', () => {
-            scrollContainer(this.props, windowHeight)
-            onHideHeader(this.props)
-        })
+        window.addEventListener('scroll', handleOnHideHeader(this.props, windowHeight), { passive: true });
 
         setTimeout(() => setShowSlideAnimation(containers), 100)
     },
     componentWillUnmount() {
-        window.removeEventListener('scroll', () => {})
+        _isMounted = false;
+        window.removeEventListener('scroll', handleOnHideHeader(this.props, 0, true), { passive: true });
     },
 }
 
@@ -203,10 +191,6 @@ const Enhance = compose(
         stateHandler
     ),
     withHandlers(handleProps),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    ),
     lifecycle(lifeCycle),
     onlyUpdateForKeys(canRenderProps),
 )

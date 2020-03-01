@@ -1,10 +1,11 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
-import { connect } from 'react-redux'
-
 import DisplayComponent from '../../components/home/HomeTopScreen'
 import { setWindowHeight } from '../../util/responsive';
+import _ from 'lodash-es';
 
 const display = "HomeTopScreen"
+let _isMounted = false;
+let _wasLoaded = false;
 
 const initialProps = {
     containerId: 1,
@@ -73,7 +74,7 @@ const slideShowContainer = (ownProps) => (containers) => {
     }
 }
 
-const onHideHeader = () => (props) => {
+const onHideHeader = _.throttle((props) => {
     const {
         getRef,
         isHeaderHide,
@@ -97,55 +98,49 @@ const onHideHeader = () => (props) => {
     } else if (containerPosition >= 0 && isHeaderHide) {
         handleChange('isHeaderHide', false)
     }
-}
+}, 300);
 
 // propsの変更を行わないhandler
 const handleProps = {
     ...refHandler(),
-    slideShowContainer,
-    onHideHeader
+    slideShowContainer
 }
 
-const mapStateToProps = (state) => {
-    return {
-        ...state
+const handleOnHideHeader = (containers, props, isRemove) => () => {
+    if(!isRemove && _isMounted) {
+        props.slideShowContainer(containers);
+        onHideHeader(props);
     }
-}
-
-const mapDispatchToProps = () => ({
-
-})
+};
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentDidMount() {
+        _isMounted = true;
         const {
             getContainers,
-            slideShowContainer,
-            onHideHeader
+            isContainerAnimes
         } = this.props
         const containers = getContainers()
+        if(_wasLoaded) {
+            const nextIsContainerAnimes = isContainerAnimes
+            for (let i = 1; i < Object.keys(isContainerAnimes).length + 1; i++) {
+                nextIsContainerAnimes[i] = false
+            }
+            handleChange('isContainerAnimes', nextIsContainerAnimes)
+        }
         const totalContainers = Object.keys(containers).length
         for (let i = 1; i < totalContainers + 1; i++) {
             containers[i].style.opacity = 0
         }
-
-        window.addEventListener('scroll', () => {
-            slideShowContainer(containers)
-            onHideHeader(this.props)
-        })
+        window.addEventListener('scroll', handleOnHideHeader(containers, this.props), { passive: true });
+        if(!_wasLoaded) {
+            _wasLoaded = true;
+        }
     },
     componentWillUnmount() {
-        const {
-            isContainerAnimes,
-            handleChange
-        } = this.props
-        const nextIsContainerAnimes = isContainerAnimes
-        for (let i = 1; i < Object.keys(isContainerAnimes).length + 1; i++) {
-            nextIsContainerAnimes[i] = false
-        }
-        handleChange('isContainerAnimes', nextIsContainerAnimes)
-        window.addEventListener('scroll', () => {})
+        _isMounted = false;
+        window.removeEventListener('scroll', handleOnHideHeader([], this.props, true), { passive: true });
     }
 }
 
@@ -156,10 +151,6 @@ const Enhance = compose(
         stateHandler
     ),
     withHandlers(handleProps),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    ),
     lifecycle(lifeCycle),
     onlyUpdateForKeys(canRenderProps),
 )

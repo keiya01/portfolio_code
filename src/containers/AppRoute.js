@@ -1,7 +1,4 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
-import { connect } from 'react-redux'
-import * as Works from '../modules/works'
-
 import AppRoute from '../components/AppRoute'
 
 
@@ -45,35 +42,14 @@ const redirectHashUri = (ownProps) => () => {
 }
 
 // propsの変更を行わないhandler
-const handleProps = (ownProps) => ({
+const handleProps = () => ({
     redirectHashUri,
-})
-
-const mapStateToProps = (state) => {
-    const {
-        data
-    } = state.works
-    return {
-        list: data
-    }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    getWorks: () => dispatch(Works.getWorks())
 })
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
-    componentWillMount() {
-        const {
-            list,
-            getWorks,
-            redirectHashUri
-        } = this.props
-        if (list.length === 0) {
-            getWorks()
-        }
-        redirectHashUri()
+    componentDidMount() {
+        this.props.redirectHashUri();
     },
 }
 
@@ -84,10 +60,6 @@ const Enhance = compose(
         stateHandler
     ),
     withHandlers(handleProps),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    ),
     lifecycle(lifeCycle),
     onlyUpdateForKeys(canRenderProps),
 )

@@ -1,9 +1,11 @@
 import { compose, withStateHandlers, setDisplayName, lifecycle, onlyUpdateForKeys, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
-
-import DisplayComponent from '../../components/works/WorkTopScreen'
+import _ from 'lodash-es';
+import * as Works from '../../modules/works';
+import DisplayComponent from '../../components/works/WorkTopScreen';
 
 const display = 'WorkTopScreen'
+let _isMounted = false;
 
 const initialProps = {
     list: [],
@@ -85,17 +87,16 @@ const stateHandler = {
 const refHandler = () => {
     let refs = {}
     return {
-        setRef: (ownProps) => name => e => (refs[name] = e),
-        getRef: (ownProps) => name => refs[name]
+        setRef: () => name => e => (refs[name] = e),
+        getRef: () => name => refs[name]
     }
 }
 
-const onHideHeader = (ownProps) => (props) => {
+const onHideHeader = (props) => {
     const {
         getRef,
-        isHeaderHide,
         handleChange
-    } = props
+    } = props;
 
     const container = getRef('container')
     if (!container) {
@@ -104,11 +105,11 @@ const onHideHeader = (ownProps) => (props) => {
 
     const containerPosition = container.getBoundingClientRect().top
     const containerHeight  = container.clientHeight
-    const changeingPosition = (containerPosition + containerHeight)
+    const changingPosition = (containerPosition + containerHeight)
 
-    if (changeingPosition <= 0 && isHeaderHide) {
+    if (changingPosition <= 0) {
         handleChange('isHeaderHide', false)
-    } else if (changeingPosition >= 0 && !isHeaderHide) {
+    } else if (changingPosition >= 0) {
         handleChange('isHeaderHide', true)
     }
 }
@@ -130,27 +131,28 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
+    getWorks: () => dispatch(Works.getWorks())
 })
+
+const handleOnHideHeader = (props, isRemove) => _.throttle(() => {
+    if(!isRemove && _isMounted) {
+        onHideHeader(props);
+    }
+}, 500);
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentDidMount() {
-        const {
-            getRef,
-            onHideHeader
-        } = this.props
-        const wrapper = getRef('scrollContainer')
-        wrapper.addEventListener('scroll', () => {
-            onHideHeader(this.props)
-        })
+        _isMounted = true;
+        this.props.getWorks()
+        const wrapper = this.props.getRef('scrollContainer')
+        wrapper.addEventListener('scroll', handleOnHideHeader(this.props), { passive: true })
     },
     componentWillUnmount() {
-        const {
-            getRef,
-        } = this.props
-        const wrapper = getRef('scrollContainer')
-        wrapper.addEventListener('scroll', () => {})
+        _isMounted = false;
+        const wrapper = this.props.getRef('scrollContainer')
+        wrapper.removeEventListener('scroll', handleOnHideHeader(this.props, true), { passive: true });
     }
 }
 
@@ -161,10 +163,7 @@ const Enhance = compose(
         stateHandler
     ),
     withHandlers(handleProps),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    ),
+    connect(mapStateToProps, mapDispatchToProps),
     lifecycle(lifeCycle),
     onlyUpdateForKeys(canRenderProps),
 )
