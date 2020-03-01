@@ -1,10 +1,10 @@
-import React, { lazy, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ScrollToTop from '../containers/ScrollToTop'
 import LoadingScreen from '../components/common/LoadingScreen';
-const HomeTopScreen = lazy(() => import('../containers/home/HomeTopScreen'))
-const BlogTopScreen = lazy(() => import('../containers/blogs/BlogTopScreen'))
-const WorkTopScreen = lazy(() => import('../containers/works/WorkTopScreen'))
+import HomeTopScreen from '../containers/home/HomeTopScreen';
+import BlogTopScreen from '../containers/blogs/BlogTopScreen';
+import WorkTopScreen from '../containers/works/WorkTopScreen';
 
 export default function AppRoute() {
     return (
