@@ -7,6 +7,8 @@
     "@fortawesome/free-brands-svg-icons": "^5.7.1",
     "@fortawesome/free-solid-svg-icons": "^5.7.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "aphrodite": "^2.2.3",
+    "fsevents": "^1.2.9",
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -36,9 +38,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "aphrodite": "^2.2.3"
-  },
   "resolutions": {
     "**/**/fsevents": "^1.2.9"
   }
