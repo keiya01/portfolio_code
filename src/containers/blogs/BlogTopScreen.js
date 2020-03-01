@@ -29,11 +29,11 @@ const stateHandler = {
     handleChange,
 }
 
+const refContainers = {}
 const containerRefHandle = () => {
-    let refs = {}
     return {
-        setContainer: () => name => e => (refs[name] = e),
-        getContainer: () => () => refs
+        setContainer: () => name => e => (refContainers[name] = e),
+        getContainer: () => () => refContainers
     }
 }
 
@@ -45,14 +45,10 @@ const refHandler = () => {
     }
 }
 
-const scrollContainer = (props) => {
-    const {
-        getContainer,
-    } = props
-
+const scrollContainer = () => {
     const windowHeight = setWindowHeight()
 
-    const containers = getContainer()
+    const containers = refContainers;
     const totalContainers = Object.keys(containers).length
     const documentElem = window.document.scrollingElement || window.document.documentElement
     let scrollPosition = documentElem.scrollTop
@@ -120,11 +116,10 @@ const setShowSlideAnimation = (containers) => {
 
 const onHideHeader = _.throttle((props) => {
     const {
-        getContainer,
         handleChange
     } = props
 
-    const container = getContainer()[1]
+    const container = refContainers[1];
     if (!container) {
         return
     }
@@ -140,18 +135,19 @@ const onHideHeader = _.throttle((props) => {
     }
 }, 500);
 
-// propsの変更を行わないhandler
-const handleProps = {
-    ...refHandler(),
-    ...containerRefHandle()
-}
-
-const handleOnHideHeader = (props, height, isRemove) => () => {
-    if(!isRemove && _isMounted) {
-        scrollContainer(props, height);
+const handleOnHideHeader = (props) => () => {
+    if(_isMounted) {
+        scrollContainer(props);
         onHideHeader(props);
     }
 };
+
+// propsの変更を行わないhandler
+const handleProps = {
+    ...refHandler(),
+    ...containerRefHandle(),
+    handleOnHideHeader
+}
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
@@ -174,13 +170,13 @@ const lifeCycle = {
             mainContainer.style.height = `${windowHeight * totalContaners}px`
         }
         
-        window.addEventListener('scroll', handleOnHideHeader(this.props, windowHeight), { passive: true });
+        window.addEventListener('scroll', this.props.handleOnHideHeader, { passive: true });
 
         setTimeout(() => setShowSlideAnimation(containers), 100)
     },
     componentWillUnmount() {
         _isMounted = false;
-        window.removeEventListener('scroll', handleOnHideHeader(this.props, 0, true), { passive: true });
+        window.removeEventListener('scroll', this.props.handleOnHideHeader, { passive: true });
     },
 }
 

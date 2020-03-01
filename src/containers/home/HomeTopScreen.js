@@ -36,23 +36,23 @@ const stateHandler = {
     handleChange,
 }
 
+let refContainers = {}
+let refs = {}
 const refHandler = () => {
-    let refs = {}
-    let containers = {}
     return {
         setRef: () => name => e => (refs[name] = e),
         getRef: () => name => refs[name],
-        setContainer: () => id => e => (containers[id] = e),
-        getContainers: () => () => containers,
+        setContainer: () => id => e => (refContainers[id] = e),
+        getContainers: () => () => refContainers,
     }
 }
 
-const slideShowContainer = (ownProps) => (containers) => {
+const slideShowContainer = (props, containers) => {
     const {
         containerId,
         isContainerAnimes,
         handleChange
-    } = ownProps
+    } = props
 
     const nextIsContainerAnimes = isContainerAnimes
 
@@ -76,7 +76,6 @@ const slideShowContainer = (ownProps) => (containers) => {
 
 const onHideHeader = _.throttle((props) => {
     const {
-        getRef,
         isHeaderHide,
         handleChange
     } = props
@@ -86,7 +85,7 @@ const onHideHeader = _.throttle((props) => {
         return
     }
 
-    const circleContainer = getRef('circleContainer')
+    const circleContainer = refs['circleContainer']
     if (!circleContainer) {
         return
     }
@@ -100,18 +99,19 @@ const onHideHeader = _.throttle((props) => {
     }
 }, 300);
 
-// propsの変更を行わないhandler
-const handleProps = {
-    ...refHandler(),
-    slideShowContainer
-}
-
-const handleOnHideHeader = (containers, props, isRemove) => () => {
-    if(!isRemove && _isMounted) {
-        props.slideShowContainer(containers);
+const handleOnHideHeader = (props) => () => {
+    if(_isMounted) {
+        slideShowContainer(props, refContainers);
         onHideHeader(props);
     }
 };
+
+// propsの変更を行わないhandler
+const handleProps = {
+    ...refHandler(),
+    slideShowContainer,
+    handleOnHideHeader
+}
 
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
@@ -133,14 +133,14 @@ const lifeCycle = {
         for (let i = 1; i < totalContainers + 1; i++) {
             containers[i].style.opacity = 0
         }
-        window.addEventListener('scroll', handleOnHideHeader(containers, this.props), { passive: true });
+        window.addEventListener('scroll', this.props.handleOnHideHeader, { passive: true });
         if(!_wasLoaded) {
             _wasLoaded = true;
         }
     },
     componentWillUnmount() {
         _isMounted = false;
-        window.removeEventListener('scroll', handleOnHideHeader([], this.props, true), { passive: true });
+        window.removeEventListener('scroll', this.props.handleOnHideHeader, { passive: true });
     }
 }
 

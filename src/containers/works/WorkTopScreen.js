@@ -84,8 +84,8 @@ const stateHandler = {
     onShowItem
 }
 
+let refs = {}
 const refHandler = () => {
-    let refs = {}
     return {
         setRef: () => name => e => (refs[name] = e),
         getRef: () => name => refs[name]
@@ -94,11 +94,10 @@ const refHandler = () => {
 
 const onHideHeader = (props) => {
     const {
-        getRef,
         handleChange
     } = props;
 
-    const container = getRef('container')
+    const container = refs['container'];
     if (!container) {
         return
     }
@@ -114,10 +113,16 @@ const onHideHeader = (props) => {
     }
 }
 
+const handleOnHideHeader = (props) => _.throttle(() => {
+    if(_isMounted) {
+        onHideHeader(props);
+    }
+}, 500);
+
 // propsの変更を行わないhandler
 const handleProps = {
     ...refHandler(),
-    onHideHeader,
+    handleOnHideHeader
 }
 
 const mapStateToProps = (state) => {
@@ -135,24 +140,18 @@ const mapDispatchToProps = (dispatch) => ({
     getWorks: () => dispatch(Works.getWorks())
 })
 
-const handleOnHideHeader = (props, isRemove) => _.throttle(() => {
-    if(!isRemove && _isMounted) {
-        onHideHeader(props);
-    }
-}, 500);
-
 // componentDidMountなどのライフサイクルを記述する
 const lifeCycle = {
     componentDidMount() {
         _isMounted = true;
         this.props.getWorks()
         const wrapper = this.props.getRef('scrollContainer')
-        wrapper.addEventListener('scroll', handleOnHideHeader(this.props), { passive: true })
+        wrapper.addEventListener('scroll', this.props.handleOnHideHeader, { passive: true })
     },
     componentWillUnmount() {
         _isMounted = false;
         const wrapper = this.props.getRef('scrollContainer')
-        wrapper.removeEventListener('scroll', handleOnHideHeader(this.props, true), { passive: true });
+        wrapper.removeEventListener('scroll', this.props.handleOnHideHeader, { passive: true });
     }
 }
 
