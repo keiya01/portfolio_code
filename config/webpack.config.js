@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -237,7 +237,7 @@ module.exports = function(webpackEnv) {
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
       splitChunks: {
         runtimeChunk: 'single',
-        cacheGroup: {
+        cacheGroups: {
           vendor: {
             test: /react|react-router|aphrodite/
           }
