@@ -4,15 +4,18 @@ import thunk from 'redux-thunk'
 
 import works from './works'
 
+
 function createStore() {
+  const middleware = [thunk];
+  if(process.env.NODE_ENV !== 'production') {
+    middleware.push(logger);
+  }
+
   const store = reduxCreateStore(
     combineReducers({
       works
     }),
-    applyMiddleware(
-      thunk,
-      logger,
-    )
+    applyMiddleware(...middleware)
   );
   
   return store;
